@@ -1,3 +1,4 @@
+![NPS Image](/images/NPS.png)
 ###### npssr_code
 
 # NPS + Self-Regulation
