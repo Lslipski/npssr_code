@@ -1,0 +1,19 @@
+{
+"NPSSR: Analysis for Becker 2016 Reward Sub-study": 
+"The Becker 2016 Reward dataset evaluates the effect of reward on pain. Reward will 
+Be one of the conditions we examine in this NPS + Self-Regulation Analysis",
+
+"Associated_publications": 
+"Becker, S., et al., Orbitofrontal cortex mediates pain inhibition by monetary reward. Social Cognitive and Affective Neuroscience, 2016.",
+
+"Notes":
+"This dataset was shared with Tor by Susanne Becker",
+
+"Publication_URLs": 
+"https://academic.oup.com/scan/article/12/4/651/2948769",
+
+"Field_strength": "3.0T"
+
+
+
+}
