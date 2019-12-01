@@ -36,7 +36,7 @@ for i = 1:length(DAT.conditions)
     % This version assumes that FOLDERS have names of CONDITIONS and images
     % are in each folder
     
-    if ~isempty(DAT.subfolders) && ~isempty(DAT.subfolders{1})  % if we have subfolders
+    if ~isempty(DAT.subfolders) && ~isempty(DAT.subfolders{i})  % if we have subfolders
         
         str = fullfile(datadir, DAT.subfolders{i}, DAT.functional_wildcard{i});
         
