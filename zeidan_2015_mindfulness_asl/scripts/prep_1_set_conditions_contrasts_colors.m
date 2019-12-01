@@ -58,5 +58,24 @@ DAT.contrastcolors = {[.2 .2 .8] [.2 .8 .2] [.2 .5 .8] [.8 .2 .2]};
 
 disp('SET up conditions, colors, contrasts in DAT structure.');
 
+% Set BETWEEN-CONDITION contrasts, names, and colors
+% ------------------------------------------------------------------------
+%    If conditions being compared include images for different subjects
+%    i.e., condition{1} and condition{2} include different individuals, 
+%    enter contrasts in DAT.between_condition_cons below.
+%    These will be used in c2c_SVM_between_condition_contrasts.
+%    You do not need to have the same number of images in each condition
+%    being compared.
+%    Contrasts are unpaired tests across these conditions.
+
+% Matrix of [n contrasts x k conditions]
+
+DAT.between_condition_cons = [];
+
+DAT.between_condition_contrastnames = {};
+          
+DAT.between_condition_contrastcolors = custom_colors ([.2 .2 .8], [.2 .8 .2], size(DAT.between_condition_cons, 1));
+
+
 
 
