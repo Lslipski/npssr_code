@@ -1,4 +1,6 @@
 The following data issues were found in this dataset during QA and batch script processing:
+================================
+
 
 The following files are named with the prefix 'MRI2' instead of 'MR2', so they were not being picked up by Tor's scripts. 
 
@@ -8,4 +10,16 @@ The following files are named with the prefix 'MRI2' instead of 'MR2', so they w
 
 2015_Zeidan_Mindfulness_ASL/data/mindfulness_meditation/MRI2_M02_4heat_concat_pre_post_heat_mr2_meansigma38_wm_reg.feat
 
-Combined, these folders account for the discrepancies between my jupyter notebook expected participant counts and those found in the data objects that Tor's scripts use to calculate NPS values. I will change these filenames to 'MR2' and check with Tor if he is aware of this issue. Given that this seems like an error and not a delibeate subtle renaming, I will assume this is the case. 
+Combined, these folders account for the discrepancies between my jupyter notebook expected participant counts and those found in the data objects that Tor's scripts use to calculate NPS values. I will change these filenames to 'MR2' and check with Tor if he is aware of this issue. Given that this seems like an error and not a delibeate subtle renaming, I will assume this is the case.
+
+
+===============================
+
+The following file is named with only 2 digits:
+
+/2015_Zeidan_Mindfulness_ASL/data/sham_mindfulness/MR2_S07_4heat_concat_pre_post_heat_mr2_meansigma38_wm_reg.feat 
+
+However, it's not clear that it should labeled as 007 because that folder already exists:
+/2015_Zeidan_Mindfulness_ASL/data/sham_mindfulness/MR2_S007_4heat_concat_pre_post_heat_mr2_meansigma38_wm_reg.feat
+
+I think it may actually be S077. I will change it to that and check in with Tor about the correct naming. 

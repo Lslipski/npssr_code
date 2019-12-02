@@ -68,15 +68,17 @@
 
 %% Set up paths and load data
 
-% zeidan, S., et al., Orbitofrontal cortex mediates pain inhibition by monetary reward. Social Cognitive and Affective Neuroscience, 2016.
+% Zeidan F, Emerson NM, Farris SR, et al. Mindfulness Meditation-Based Pain 
+% Relief Employs Different Neural Mechanisms Than Placebo and Sham Mindfulness 
+% Meditation-Induced Analgesia. J Neurosci. 2015;35(46):15307?15325. doi:10.1523/JNEUROSCI.2542-15.2015
 
-basedir = '/Users/lukie/Documents/canlab/NPSSR/NPSSR_contrast_images_local/2016_zeidan_painreward_copes/';
+basedir = '/Users/lukie/Documents/canlab/NPSSR/npssr_code/zeidan_2015_mindfulness_asl/';
 datadir = fullfile(basedir, 'results');
 
 cd(datadir)
 
 % Customize to load data file
-datafilename = fullfile(datadir, 'npsvals_MSPainReward.txt');
+datafilename = fullfile(datadir, 'npsvals_mindfulness_zeidan.mat');
 nheaderlines = 1;
 delim = '\t';
 dat = importdata(datafilename, delim, nheaderlines);
@@ -94,7 +96,7 @@ DAT = canlab_dataset;
 
 % Fill in Experiment-level information
 % ------------------------------------------------------------------------
-DAT.Description.Experiment_Name = 'zeidan, S., et al., Orbitofrontal cortex mediates pain inhibition by monetary reward. Social Cognitive and Affective Neuroscience, 2016.';
+DAT.Description.Experiment_Name = 'Zeidan F, Emerson NM, Farris SR, et al. Mindfulness Meditation-Based Pain Relief Employs Different Neural Mechanisms Than Placebo and Sham Mindfulness Meditation-Induced Analgesia. J Neurosci. 2015;35(46):15307?15325. doi:10.1523/JNEUROSCI.2542-15.2015';
 DAT.Description.Missing_Values = NaN;
 
 % Fill in variable names
