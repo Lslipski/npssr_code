@@ -77,15 +77,12 @@ datadir = fullfile(basedir, 'results');
 
 cd(datadir)
 
-% Customize to load data file
-datafilename = fullfile(datadir, 'npsvals_mindfulness_zeidan.mat');
-nheaderlines = 1;
-delim = '\t';
-dat = importdata(datafilename, delim, nheaderlines);
+% Load npsvals mat file from prep_5
+dat = load(fullfile(datadir, 'npsvals_mindfulness_zeidan.mat'));
 
-dat.textdata{2} = dat.textdata{2}(2:end);  % ad hoc: remove extra space (typo)
+% grab first column from nps values to get subjids
+subjids = table2cell(dat.nps_table(:,1));
 
-%dat = textread(datafilename, '%3.6f', 'delimiter', delim, 'headerlines', nheaderlines)
 %% Create canlab_dataset object
 % -------------------------------------------------------------------------
 % This provides a standard data format, and allows the use of more methods,
@@ -99,16 +96,11 @@ DAT = canlab_dataset;
 DAT.Description.Experiment_Name = 'Zeidan F, Emerson NM, Farris SR, et al. Mindfulness Meditation-Based Pain Relief Employs Different Neural Mechanisms Than Placebo and Sham Mindfulness Meditation-Induced Analgesia. J Neurosci. 2015;35(46):15307?15325. doi:10.1523/JNEUROSCI.2542-15.2015';
 DAT.Description.Missing_Values = NaN;
 
-% Fill in variable names
+%% Fill in variable names
 % ------------------------------------------------------------------------
 
 % Names of subject-level data we want to store
 % -------------------------------------------------------------------------
-
-% Subject ID - put in cell array of strings
-subjid = dat.data(:, 1);
-subjid = mat2cell(subjid, ones(length(subjid), 1), 1);
-subjid = cellfun(@num2str, subjid, 'UniformOutput', 0);
 
 DAT.Subj_Level.id = subjid;
 
@@ -122,21 +114,20 @@ DAT.Subj_Level.names = dat.textdata(2:end);  % Subject is first; omit
 % Descriptions, added to DAT.Subj_Level.descrip
 % -------------------------------------------------------------------------
 
-descrip = {'LOSEMILD: NPS vals following loss, mild pain'
-    'LOSEMOD: NPS vals following loss, moderate pain'
-    'LOSENO: NPS vals following loss, no pain'
-    'NEUTMILD: NPS vals following no reward/loss, mild pain'
-    'NEUTMOD: NPS vals following no reward/loss, moderate pain'
-    'NEUTNO: NPS vals following no reward/loss, no pain'
-    'WINMILD: NPS vals following win, mild pain'
-    'WINMOD: NPS vals following win, moderate pain'
-    'WINNO: NPS vals following win, no pain'};
+descrip = {'Book Control -- Post Manipulation'
+    'Book Control -- Pre Manipulation'
+    'Placebo -- Post Manipulation'
+    'Placebo -- Pre Manipulation'
+    'Sham -- Post Manipulation'
+    'Sham -- Pre Manipulation'
+    'Mindfulness -- Post Manipulation'
+    'Minfulness -- Pre Manipulation'};
         
 DAT.Subj_Level.descrip = descrip;
 
 %% ADD DATA to canlab_dataset object
 % -------------------------------------------------------------------------
-DAT.Subj_Level.data = dat.data(:, 2:end);
+DAT.Subj_Level.data = dat.nps_table(:, 2:end);
 
 
 % Create contrasts of interest and save
