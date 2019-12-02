@@ -93,7 +93,7 @@ DAT = canlab_dataset;
 
 % Fill in Experiment-level information
 % ------------------------------------------------------------------------
-DAT.Description.Experiment_Name = 'Zeidan F, Emerson NM, Farris SR, et al. Mindfulness Meditation-Based Pain Relief Employs Different Neural Mechanisms Than Placebo and Sham Mindfulness Meditation-Induced Analgesia. J Neurosci. 2015;35(46):15307?15325. doi:10.1523/JNEUROSCI.2542-15.2015';
+DAT.Description.Experiment_Name = 'Zeidan_2015_Mindfulness_ASL';
 DAT.Description.Missing_Values = NaN;
 
 %% Fill in variable names
@@ -102,10 +102,10 @@ DAT.Description.Missing_Values = NaN;
 % Names of subject-level data we want to store
 % -------------------------------------------------------------------------
 
-DAT.Subj_Level.id = subjid;
+DAT.Subj_Level.id = subjids;
 
-% Other variables
-DAT.Subj_Level.names = dat.textdata(2:end);  % Subject is first; omit
+% Get Variable names
+DAT.Subj_Level.names = dat.nps_table.Properties.VariableNames(2:end);  
 
 % Names of trial-level data we want to store
 % -------------------------------------------------------------------------
@@ -114,33 +114,33 @@ DAT.Subj_Level.names = dat.textdata(2:end);  % Subject is first; omit
 % Descriptions, added to DAT.Subj_Level.descrip
 % -------------------------------------------------------------------------
 
-descrip = {'Book Control -- Post Manipulation'
-    'Book Control -- Pre Manipulation'
-    'Placebo -- Post Manipulation'
-    'Placebo -- Pre Manipulation'
-    'Sham -- Post Manipulation'
-    'Sham -- Pre Manipulation'
-    'Mindfulness -- Post Manipulation'
-    'Minfulness -- Pre Manipulation'};
+descrip = {'Book Control: Post Manipulation'
+    'Book Control: Pre Manipulation'
+    'Placebo: Post Manipulation'
+    'Placebo: Pre Manipulation'
+    'Sham: Post Manipulation'
+    'Sham: Pre Manipulation'
+    'Mindfulness: Post Manipulation'
+    'Mindfulness: Pre Manipulation'};
         
 DAT.Subj_Level.descrip = descrip;
 
 %% ADD DATA to canlab_dataset object
 % -------------------------------------------------------------------------
-DAT.Subj_Level.data = dat.nps_table(:, 2:end);
+DAT.Subj_Level.data = table2array(dat.nps_table(:, 2:end));  % convert to array so that get_var below can use it
 
 
 % Create contrasts of interest and save
 
 % Contrasts
 % use C' to get into correct shape for DAT
-C = [0 .333 -.333 0 .333 -.333 0 .333 -.333;    
-     -.333 .333 0 -.333 .333 0 -.333 .333 0;
-     -.5 -.5 0 0 0 0 .5 .5 0; 
-     .25 .25 0 -.5 -.5 0 .25 .25 0]';
-connames = {'Hot - None' 'Hot - Mild' 'HotMild Win-Loss' 'HotMild WinLoss - NoRew'};
+C = [0 0 0 0 0 0 1 -1;    
+     0 0 0 0 -1 0 1 0;
+     0 0 -1 0 0 0 1 0; 
+     -1 0 0 0 0 0 1 0]';
+connames = {'Mindfulness Post - Mindfulness Pre' 'Mindfulness Post - Sham Post' 'Mindfulness Post - Placebo Post' 'Mindfulness Post - Book Post'};
 
-wh = 1:9; % for indices of conditions
+wh = 1:8; % for indices of conditions
 mydat = get_var(DAT, DAT.Subj_Level.names(wh)); % get subject level data for each of the 9 conditions
 convals = mydat * C; % multiply data by contrasts to get values for each subject for each contrast
 
@@ -148,10 +148,10 @@ DAT.Subj_Level.data = [DAT.Subj_Level.data convals]; % concatenate contrast valu
 DAT.Subj_Level.names = [DAT.Subj_Level.names connames]; % concatenate contrast names onto subject level names
 
 % add descriptions to the subject level description field for the contrasts
-DAT.Subj_Level.descrip(end+1) = {'Hot - No pain within-person contrast'}; 
-DAT.Subj_Level.descrip(end+1) = {'Hot - Mild within-person contrast'};
-DAT.Subj_Level.descrip(end+1) = {'Hot + Mild Reward gain - Loss within-person contrast'};  
-DAT.Subj_Level.descrip(end+1) = {'Hot + Mild Reward or loss - No reward within-person contrast'};
+DAT.Subj_Level.descrip(end+1) = {'Mindfulness Post - Mindfulness Pre within-person contrast'}; 
+DAT.Subj_Level.descrip(end+1) = {'Mindfulness Post - Sham Post within-person contrast'};
+DAT.Subj_Level.descrip(end+1) = {'Mindfulness Post - Placebo Post within-person contrast'};  
+DAT.Subj_Level.descrip(end+1) = {'Mindfulness Post - Book Post within-person contrast'};
 
 % Add variable types
 
@@ -162,7 +162,7 @@ DAT.Subj_Level.type = repmat({'numeric'}, 1, k); % get variable types
 %% check and write dataset
 
 % List variable names
-get_var(DAT); %print variables to command windo
+get_var(DAT); %print variables to command window
 
 write_text(DAT)
 
