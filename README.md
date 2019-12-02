@@ -30,7 +30,7 @@ The within study code pipeline (assuming contrast images are provided instead of
   1. **prep_2_load_image_data_and_save.m**
   1. **prep_3_calc_univariate_contrast_maps_and_save.m**
   1. **prep_4_apply_signatures_and_save.m**
-  1. **prep_5_save_nps_values_delimited.m**
+  1. **prep_5_save_nps_values_[dataset_ID].m**
   
   At this point, the NPS values we need are all created and saved to tab delimited file, "npsvals_[dataset_ID]". Now we need to take these values and put them into CANLab data object. Then we import the behavioral pain ratings to the same CANLab data object.
 
