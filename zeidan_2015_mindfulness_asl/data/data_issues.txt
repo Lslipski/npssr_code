@@ -22,4 +22,13 @@ The following file is named with only 2 digits:
 However, it's not clear that it should labeled as 007 because that folder already exists:
 /2015_Zeidan_Mindfulness_ASL/data/sham_mindfulness/MR2_S007_4heat_concat_pre_post_heat_mr2_meansigma38_wm_reg.feat
 
-I think it may actually be S077. I will change it to that and check in with Tor about the correct naming. 
+I think it may actually be S077. I will change it to that and check in with Tor about the correct naming.
+
+
+
+==============================
+
+The Dropbox folder doesn't currently include any behavioral data that I can find. We'll have to ask Fadel for these.
+
+==============================
+Do we need to account for this data being ASL and not BOLD? 
