@@ -1,0 +1,6 @@
+Not all participants have the same number of files. A summary can be found in the count_subject_files notebook in this root folder.
+
+Only 25 subjects have all 24 expected files.
+
+We have data from 96 participants, but in the 'Serotonin transporter polymorphism alters citalopram effects on human pain responses to physical pain' study
+they report only recruiting 56 participants.
