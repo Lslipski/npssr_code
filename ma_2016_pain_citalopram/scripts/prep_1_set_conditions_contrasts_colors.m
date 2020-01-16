@@ -41,7 +41,9 @@ DAT = struct();
 % contain a string specifying the condition name to be used in plots and
 % tables. This does not have to correspond to an image/directory name.
 
-DAT.conditions = {'LOSEMILD' 'LOSEMOD' 'NEUTMILD' 'NEUTMOD' 'WINMILD' 'WINMOD'};
+DAT.conditions = {'Pain_Ant_Run1' 'NoPain_Ant_Run1' 'Pain_Run1' 'NoPain_Run1'...
+                  'Pain_Ant_Run2' 'NoPain_Ant_Run2' 'Pain_Run2' 'NoPain_Run2'...
+                  'Pain_Ant_Run3' 'NoPain_Ant_Run3' 'Pain_Run3' 'NoPain_Run3'};
 
 DAT.conditions = format_strings_for_legend(DAT.conditions);
 
@@ -82,7 +84,7 @@ DAT.conditions = format_strings_for_legend(DAT.conditions);
 % condition. 
 % If you do not have subfolders, it is OK to leave this empty, i.e., DAT.subfolders = {};
 
-DAT.subfolders = {'' '' '' '' '' ''};
+DAT.subfolders = {'' '' '' '' '' '' '' '' '' '' '' ''};
 
 % Names of wildcard (expression with *, [1-9], 
 % Enter a cell array { } with one cell per condition.  Each cell should
@@ -90,7 +92,18 @@ DAT.subfolders = {'' '' '' '' '' ''};
 % condition. 
 
 DAT.structural_wildcard = {};
-DAT.functional_wildcard = {'*LOSEMILD*nii' '*LOSEMOD*nii' '*NEUTMILD*nii' '*NEUTMOD*nii' '*WINMILD*nii' '*WINMOD*nii'};
+DAT.functional_wildcard = {'Pain_Sub*AP_001.img' ...
+                            'Pain_Sub*ANP_001.img' ...
+                            'Pain_Sub*EP_001.img' ...
+                            'Pain_Sub*ENP_001.img' ...
+                            'Pain_Sub*AP_002.img' ...
+                            'Pain_Sub*ANP_002.img' ...
+                            'Pain_Sub*EP_002.img' ...
+                            'Pain_Sub*ENP_002.img' ...
+                            'Pain_Sub*AP_003.img' ...
+                            'Pain_Sub*ANP_003.img' ...
+                            'Pain_Sub*EP_003.img' ...
+                            'Pain_Sub*ENP_003.img'};
 
 % Set Contrasts
 % ------------------------------------------------------------------------
@@ -126,13 +139,17 @@ DAT.functional_wildcard = {'*LOSEMILD*nii' '*LOSEMOD*nii' '*NEUTMILD*nii' '*NEUT
 
 
 
-DAT.contrasts = [-0.3333    0.3333   -0.3333    0.3333   -0.3333    0.3333; 
-                 -0.5000   -0.5000         0         0    0.5000    0.5000; 
-                  0.1667   -0.1667         0         0   -0.1667    0.1667];
+DAT.contrasts = [0 0 1 -1 0 0 1 -1 0 0 1 -1
+                 0 0 1 -1 0 0 0 0 0 0 0 0
+                 0 0 0 0 0 0 1 -1 0 0 0 0
+                 0 0 0 0 0 0 0 0 0 0 1 -1];
     
 % Descriptive names for contrasts to be used in plots and tables. Avoid
 % special characters.
-DAT.contrastnames = {'Mod v Mild' 'Win v Lose' 'Intxn'};
+DAT.contrastnames = {'Pain v NoPain avg'
+                     'Pain v NoPain R1'
+                     'Pain v NoPain R2'
+                     'Pain v NoPain R3'};
 
 DAT.contrastnames = format_strings_for_legend(DAT.contrastnames);
 

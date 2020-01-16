@@ -29,9 +29,8 @@
 % --------------------------------------------------------
 
 % Base directory for whole study/analysis
-% Base directory for whole study/analysis
 basedir = '/Users/lukie/Documents/canlab/NPSSR/npssr_code/ma_2016_pain_citalopram';
-datadir = '/Users/lukie/Documents/canlab/NPSSR/NPSSR_contrast_images_local/ma_2016_pain_citalopram/data'
+datadir = '/Users/lukie/Documents/canlab/NPSSR/NPSSR_contrast_images_local/ma_2016_pain_citalopram/data';
 
 % Set user options
 % --------------------------------------------------------
@@ -43,7 +42,6 @@ a2_set_default_options
 
 cd(basedir)
 
-datadir = fullfile(basedir, 'data');
 resultsdir = fullfile(basedir, 'results');
 scriptsdir = fullfile(basedir, 'scripts');
 figsavedir = fullfile(resultsdir, 'figures');
