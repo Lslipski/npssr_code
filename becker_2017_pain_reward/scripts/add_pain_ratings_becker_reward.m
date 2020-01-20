@@ -1,7 +1,7 @@
 %% Set up paths and load data
 
 basedir = '/Users/lukie/Documents/canlab/NPSSR/NPSSR_contrast_images_local/2016_Becker_painreward_copes';
-datadir = fullfile(basedir, 'results');
+datadir = fullfile(basedir, 'data');
 
 cd(datadir)
 
