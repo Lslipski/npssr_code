@@ -13,3 +13,5 @@ they report only recruiting 56 participants.
 all 24 necessary files for now. To do this I used the bad_subject_list created in the count_subject_files notebook for this study to list the 
 participants missing data. I then created the move_bad_files.sh script, which moved all files for those participants into a data/subj_missing_data 
 folder.
+
+-We currently have no behavioral data for this project --need to email Yina Ma for this.
