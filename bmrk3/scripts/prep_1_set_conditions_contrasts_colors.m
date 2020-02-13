@@ -90,7 +90,7 @@ DAT.subfolders = {'imaginedown' 'standard' 'imagineup'};
 % condition. 
 
 DAT.structural_wildcard = {};
-DAT.functional_wildcard = {'*.img'};
+DAT.functional_wildcard = {'*.dat'};
 
 % Set Contrasts
 % ------------------------------------------------------------------------
