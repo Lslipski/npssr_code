@@ -57,7 +57,7 @@ end
 % replace forward slash with underscore, periods with empty and add prefix
 % and suffix
 for i = 1:33
-    subs{i} = strcat('imagine_down_', strrep(subs{i},'/','_'));
+    subs{i} = strcat('standard_', strrep(subs{i},'/','_'));
     subs{i} = char(strrep(subs{i}, '.',''));
     subs{i} = strcat(subs{i},'.img');
 end
@@ -93,7 +93,7 @@ end
 % replace forward slash with underscore, periods with empty and add prefix
 % and suffix
 for i = 1:33
-    subs{i} = strcat('imagine_down_', strrep(subs{i},'/','_'));
+    subs{i} = strcat('imagine_up_', strrep(subs{i},'/','_'));
     subs{i} = char(strrep(subs{i}, '.',''));
     subs{i} = strcat(subs{i},'.img');
 end
