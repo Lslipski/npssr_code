@@ -4,8 +4,8 @@ T = table();
 
 % put nps responses into a table. If missing participants, fill with NaN
 T = []
-for p = 1:size(DAT.npsresponse,2)
-    mat = [DAT.npsresponse{p}];
+for p = 1:size(DAT.npscontrasts,2) %pull from contrasts which include all conditions + down and up vs. standard
+    mat = [DAT.npscontrasts{p}];
     mat(end+1:20,:)=nan;
     T = [T mat];
 end
@@ -32,7 +32,7 @@ subjids = imaginedown.dat.image_names;
 
 % add conditions as variable names to the nps values table and save to
 % /results subfolder
-nps_table = array2table(T,'VariableNames',DAT.conditions)
+nps_table = array2table(T,'VariableNames',DAT.contrastnames)
 newnames = 'subjids'
 nps_table = addvars(nps_table, subjids', 'NewVariableNames', newnames) % add subject IDs as column
 
