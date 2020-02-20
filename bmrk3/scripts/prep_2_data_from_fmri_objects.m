@@ -72,7 +72,14 @@ printhdr('CSF REMOVAL AND RESCALING');
 % they perform operations using group information to transform individual
 % image values.
 
-DATA_CAT = DATA_OBJ{:};
+% set fullpath and image_names to character arrays, which cat() requires
+for i =1:3
+    DATA_OBJ{i}.image_names = char(DATA_OBJ{i}.image_names)
+    DATA_OBJ{i}.fullpath = char(DATA_OBJ{i}.fullpath)
+end
+
+
+DATA_CAT = cat(DATA_OBJ{:});
 
 clear sz
 
@@ -88,8 +95,10 @@ DATA_CAT = rescale(DATA_CAT, 'l2norm_images');     % scaling sensitive to mean a
 
 DATA_CAT = preprocess(DATA_CAT, 'windsorize'); % entire data matrix
 
-% DATA_OBJsc = split(DATA_CAT); %removed by Luke, not necessary for bmrk3
-% data
+DATA_OBJsc = split(DATA_CAT); 
+
+% data% Enforce variable types in objects to save space
+for i = 1:length(DATA_OBJsc), DATA_OBJsc{i} = enforce_variable_types(DATA_OBJsc{i}); end
 
 if dofullplot
     disp('AFTER WINDSORIZING AND RESCALING BY L2NORM'); %'ADJUSTING FOR WM/CSF');
