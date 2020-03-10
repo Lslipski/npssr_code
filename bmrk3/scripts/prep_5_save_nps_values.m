@@ -6,28 +6,12 @@ T = table();
 T = []
 for p = 1:size(DAT.npscontrasts,2) %pull from contrasts which include all conditions + down and up vs. standard
     mat = [DAT.npscontrasts{p}];
-    mat(end+1:20,:)=nan;
     T = [T mat];
 end
     
 
-%% This grabs all the subject imaging files and adds them to cimgs
-% for i = 1:length(DAT.conditions)
-% 
-%     if ~isempty(DAT.subfolders) && ~isempty(DAT.subfolders{i})  % if we have subfolders
-%         str = fullfile(datadir, DAT.subfolders{i}, DAT.functional_wildcard{i});
-%         cimgs{i} = plugin_unzip_images_if_needed(str);
-%     else
-%         str = fullfile(datadir, DAT.functional_wildcard{i});
-%         cimgs{i} = plugin_unzip_images_if_needed(str);
-%     end
-%     %  CHECK that files exist
-%     if isempty(cimgs{i}), fprintf('Looking in: %s\n', str), error('CANNOT FIND IMAGES. Check path names and wildcards.'); end
-%     cimgs{i} = cellfun(@check_valid_imagename, cimgs{i}, repmat({1}, size(cimgs{i}, 1), 1), 'UniformOutput', false);
-% end
-
-
-%% get subjids from cimgs, now that the files imported
+%% get subjids from the imagine down image names (same for all 3 conditions)
+data_object_wrangling;
 subjids = imaginedown.dat.image_names;
 
 % add conditions as variable names to the nps values table and save to
