@@ -5,8 +5,18 @@ x.DAT.conditions
 fprintf('Contrasts: \n')
 x.DAT.contrastnames
 
-% put nps responses into a table. If missing participants, fill with NaN
-nps_social_hi_low = [x.DAT.npscontrasts{4}];
+T=[];
+% put nps condition responses into array
+for p = 1:size(x.DAT.npsresponse,2) %pull from contrasts which include all conditions + down and up vs. standard
+    mat = [x.DAT.npsresponse{p}];
+    T = [T mat];
+end
+% put nps contrast responses into array. 
+for p = 1:size(x.DAT.npscontrasts,2) %pull from contrasts which include all conditions + down and up vs. standard
+    mat = [x.DAT.npscontrasts{p}];
+    T = [T mat];
+end
+
 
 %% get subjids 
 subjids = {'Soc_pathA_Sub1 '
@@ -50,11 +60,10 @@ subjids = [subjids];
 
 %% Add subject IDs and nps values to  table
 
-% add conditions as variable names to the nps values table and save to
-% /results subfolder
-nps_table = array2table(subjids);
-newnames = 'NPS Social Hi Low';
-nps_table = addvars(nps_table, nps_social_hi_low, 'NewVariableNames', newnames) % add subject IDs as column
+% add nps data first, then add subject IDs as final column.
+nps_table = array2table(T,'VariableNames',[x.DAT.conditions x.DAT.contrastnames])
+newnames = 'subjids';
+nps_table = addvars(nps_table, subjids, 'NewVariableNames', newnames);%, 'NewVariableNames', newnames)
 
 save(fullfile(resultsdir,'npsvals_koban_2019.mat'), 'nps_table') % save
 printhdr('Saved npsvalues')
