@@ -49,7 +49,10 @@ end
 % label to distinguish behavioral ratings from nps values
 ratings_descrip = {'IMAGINE_DOWN: Pain ratings for imagine down'
                    'STANDARD: Pain ratings for standard'
-                   'IMAGINE_UP: Pain ratings for Imagine Up'};
+                   'IMAGINE_UP: Pain ratings for Imagine Up'
+                   'Contrast: Pain ratings down vs. neutral'
+                   'Contrast: Pain ratings up vs. neutral'
+                   'Contrast: Pain ratings up vs. down'};
 DAT.Subj_Level.descrip = [DAT.Subj_Level.descrip; ratings_descrip];
 
 % add descriptions for each behavioral condition
@@ -63,7 +66,6 @@ DAT.Subj_Level.names = [DAT.Subj_Level.names, ratings_names'];
 
 % add raw ratings data to Subject level data 
 DAT.Subj_Level.data = [DAT.Subj_Level.data, agg_down_reg' agg_standard' agg_up_reg'];
-% behavioral data will be at indices 14:19 once concatenated (used below)
 
 %% add contrasts (same with NPS)
 
@@ -71,15 +73,20 @@ DAT.Subj_Level.data = [DAT.Subj_Level.data, agg_down_reg' agg_standard' agg_up_r
 % will require this to apply contrasts to data)
 C = [1 -1 0;
     0 -1 1;]';
-connames = {'Rating:Down vs Standard' 'Rating:Up vs Standard' 'Rating:Up vs Down'};
-DAT.Subj_Level.descrip = [DAT.Subj_Level.descrip; connames'];
-
-wh = 6:8; % for indices of conditions
+wh = 7:9; % for indices of conditions
 mydat = get_var(DAT, DAT.Subj_Level.names(wh)); % get subject level data for each of the behavioral conditions
 convals = mydat * C; % multiply the data by the contrasts to get behavioral values for each subject for each contrast
 
 %concatenate new contrast values to data field
 DAT.Subj_Level.data = [DAT.Subj_Level.data convals];
+
+% Now create contrast from up and down contrasts to get up vs down
+C = [-1 1]';
+wh = [10 11];
+mydat = get_var(DAT, DAT.Subj_Level.names(wh)); % get subject level data for each of the behavioral conditions
+convals = mydat * C;
+DAT.Subj_Level.data = [DAT.Subj_Level.data convals];
+
 
 % Add variable types
 k = length(DAT.Subj_Level.names); % get subject level name length

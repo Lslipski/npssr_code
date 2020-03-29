@@ -53,9 +53,6 @@ DAT.Subj_Level.data = table2array(dat.nps_table(:,1:5));
 
 %% Create contrast for up vs. down
 C = [-1 1]';
-connames = {'Rating: Up vs. Down'};
-DAT.Subj_Level.descrip = [DAT.Subj_Level.descrip; connames'];
-
 wh = [4 5]; % for indices of conditions down and up vs standard
 mydat = get_var(DAT, DAT.Subj_Level.names(wh)); % get subject level data for each of the behavioral conditions
 convals = mydat * C;
