@@ -12,34 +12,44 @@ painratings = readtable(fullfile(rawdir, 'SCEBL_NPS_painratings.xlsx'));
 
 %% Add pain ratings to new canlab data object
 % label to distinguish behavioral ratings from nps values
-ratings_descrip = {'Behavioral Ratings CLSL_49'
+ratings_descrip = {'Behavioral Ratings CLSL_48'
+                   'Behavioral Ratings CLSH_48'
+                   'Behavioral Ratings CLSL_49'
                    'Behavioral Ratings CLSH_49'
                    'Behavioral Ratings CHSL_49'
-                   'Behavioral Ratings CHSH_49'};
+                   'Behavioral Ratings CHSH_49'
+                   'Behavioral Ratings CHSL_50'
+                   'Behavioral Ratings CHSH_50'};
 DAT.Subj_Level.descrip = [DAT.Subj_Level.descrip; ratings_descrip];
 
 % add descriptions for each behavioral condition
-ratings_names = {'Behavioral_CLSL_49'
+ratings_names = {'Behavioral_CLSL_48'
+                 'Behavioral_CLSH_48'
+                 'Behavioral_CLSL_49'
                  'Behavioral_CLSH_49'
                  'Behavioral_CHSL_49'
-                 'Behavioral_CHSH_49'};
-DAT.Subj_Level.names = [DAT.Subj_Level.names, ratings_names'];
+                 'Behavioral_CHSH_49'
+                 'Behavioral_CHSL_50'
+                 'Behavioral_CHSH_50'};
+DAT.Subj_Level.names = [DAT.Subj_Level.names; ratings_names];
 
 % add raw ratings data to Subject level data 
-wh = [5 6 7 8]
-DAT.Subj_Level.data = [DAT.Subj_Level.data table2array(painratings(:, wh))];
+DAT.Subj_Level.data = [DAT.Subj_Level.data table2array(painratings(:, 3:10))];
 
 %% add contrasts for pain ratings
 
 % array is prime(') to fit the size of the subj_level data (matrix algebra
 % will require this to apply contrasts to data)
-C = [-1 1 -1 1;]';
-connames = {'Contrast Behavioral Soc_high > Soc_low'};
-DAT.Subj_Level.descrip = [DAT.Subj_Level.descrip; connames'];
-DAT.Subj_Level.names = [DAT.Subj_Level.names,connames];
+C = [0 0 -1 1 -1 1 0 0;
+     -1 -1 -1 -1 1 1 1 1;]';
+condescrips = {'Contrast Behavioral Social cue high > Soc cue low'
+            'Contrast Behavioral CS high > CS low'};
+connames = {'contrast_ratings_sochilo'
+            'contrast_ratings_cuehilo'};
+DAT.Subj_Level.descrip = [DAT.Subj_Level.descrip; condescrips];
+DAT.Subj_Level.names = [DAT.Subj_Level.names; connames];
 
-wh = 2:5; % for indices of conditions
-mydat = get_var(DAT, DAT.Subj_Level.names(wh)); % get subject level data for each of the behavioral conditions
+mydat = get_var(DAT, DAT.Subj_Level.names(13:20)); % get subject level data for each of the behavioral conditions
 convals = mydat * C; % multiply the data by the contrasts to get behavioral values for each subject for each contrast
 
 %concatenate new contrast values to data field
