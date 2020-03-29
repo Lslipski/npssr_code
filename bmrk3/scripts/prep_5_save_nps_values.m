@@ -8,7 +8,7 @@ for p = 1:size(DAT.npscontrasts,2) %pull from contrasts which include all condit
     mat = [DAT.npscontrasts{p}];
     T = [T mat];
 end
-    
+   
 
 %% get subjids from the imagine down image names (same for all 3 conditions)
 data_object_wrangling;
@@ -19,6 +19,7 @@ subjids = imaginedown.dat.image_names;
 nps_table = array2table(T,'VariableNames',DAT.contrastnames)
 newnames = 'subjids'
 nps_table = addvars(nps_table, subjids', 'NewVariableNames', newnames) % add subject IDs as column
+
 
 save(fullfile(resultsdir,'npsvals_bmrk3.mat'), 'nps_table') % save
 printhdr('Saved npsvalues')

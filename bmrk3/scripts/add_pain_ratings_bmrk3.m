@@ -8,7 +8,7 @@ cd(datadir)
 
 load canlab_dataset_bmrk3 DAT
 
-bmrk3 = load(fullfile(rawdir, 'BMRK3_dataset_fmri.mat'));
+bmrk3 = load(fullfile(rawdir, 'BMRK3_dataset_fmri.mat')); %this data object has the pain ratings in it
 
 %% Get pain ratings from bmrk3 data object
 % aggregate arrays of averaged subject pain ratings per condition
@@ -57,7 +57,8 @@ ratings_names = {'imagine_down_rating'
                  'standard_rating'
                  'imagine_up_rating'
                  'down_vs_neutral_rating'
-                 'up_vs_neutral_rating'};
+                 'up_vs_neutral_rating'
+                 'up_vs_down_rating'};
 DAT.Subj_Level.names = [DAT.Subj_Level.names, ratings_names'];
 
 % add raw ratings data to Subject level data 
@@ -70,7 +71,7 @@ DAT.Subj_Level.data = [DAT.Subj_Level.data, agg_down_reg' agg_standard' agg_up_r
 % will require this to apply contrasts to data)
 C = [1 -1 0;
     0 -1 1;]';
-connames = {'Rating:Down vs Standard' 'Rating:Up vs Standard'};
+connames = {'Rating:Down vs Standard' 'Rating:Up vs Standard' 'Rating:Up vs Down'};
 DAT.Subj_Level.descrip = [DAT.Subj_Level.descrip; connames'];
 
 wh = 6:8; % for indices of conditions

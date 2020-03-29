@@ -31,7 +31,8 @@ DAT.Description.Missing_Values = NaN;
 DAT.Subj_Level.id = dat.nps_table.subjids;
 
 % Other variables
-DAT.Subj_Level.names = dat.nps_table.Properties.VariableNames(1:5);  % Subject is first; omit
+DAT.Subj_Level.names = dat.nps_table.Properties.VariableNames(1:5); 
+DAT.Subj_Level.names = [DAT.Subj_Level.names {'up vs down'}];
 
 
 % Descriptions, added to DAT.Subj_Level.descrip
@@ -41,7 +42,8 @@ descrip = {'IMAGINE_DOWN: NPS values for imagine down '
             'STANDARD: NPS values for standard'
             'IMAGINE_UP: NPS values for imagine up'
             'DOWNvSTANDARD: NPS values for down vs standard'
-            'UPvSTANDARD: NPS values for up vs standard'};
+            'UPvSTANDARD: NPS values for up vs standard'
+            'UpvDown: NPS values for up vs down'};
         
 DAT.Subj_Level.descrip = descrip;
 
@@ -49,6 +51,16 @@ DAT.Subj_Level.descrip = descrip;
 % -------------------------------------------------------------------------
 DAT.Subj_Level.data = table2array(dat.nps_table(:,1:5));
 
+%% Create contrast for up vs. down
+C = [-1 1]';
+connames = {'Rating: Up vs. Down'};
+DAT.Subj_Level.descrip = [DAT.Subj_Level.descrip; connames'];
+
+wh = [4 5]; % for indices of conditions down and up vs standard
+mydat = get_var(DAT, DAT.Subj_Level.names(wh)); % get subject level data for each of the behavioral conditions
+convals = mydat * C;
+% add new contrast to subject level data
+DAT.Subj_Level.data = [DAT.Subj_Level.data convals];
 
 % Add variable types
 k = length(DAT.Subj_Level.names); % get subject level name length
@@ -63,7 +75,8 @@ get_var(DAT); %print variables to command windo
 write_text(DAT)
 
 %% SAVE
-
+savedir = '/Users/lukie/Documents/canlab/NPSSR/npssr_code/bmrk3/results';
+cd(savedir);
 save canlab_dataset_bmrk3 DAT
 
 
