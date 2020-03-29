@@ -1,11 +1,11 @@
 %% Load
 
-basedir = '/Users/lukie/Documents/canlab/NPSSR/NPSSR_contrast_images_local/2016_Becker_painreward_copes';
+basedir = '/Users/lukie/Documents/canlab/NPSSR/npssr_code/bmrk3';
 datadir = fullfile(basedir, 'results');
 
 cd(datadir)
 
-load canlab_dataset_becker DAT
+load canlab_dataset_bmrk3 DAT
 
 %% Analysis: Pain ratings 
 
@@ -13,12 +13,12 @@ colors = {[1 0 0] [1 .5 0] [0 1 0] [.5 1 0] [0 0 1] [0 .5 1]};
 
 create_figure('barplot', 1, 2);
 
-% Group averages
+% Group averages: Conditions
 % -------------------------------------------------------------------------
-wh = [15 14 17 16 19 18];  % reorder to make sense on plot; these correspond to contrasts of interest
+wh = 7:9;  % reorder to make sense on plot; these correspond to contrasts of interest
 bars(DAT, DAT.Subj_Level.names(wh), 'colors', colors, 'noviolin', 'nofig');
 ylabel('Pain ratings');
-title('Group averages');
+title('Condition Values');
 
 % Contrasts
 % -------------------------------------------------------------------------
@@ -26,10 +26,12 @@ subplot(1, 2, 2);
 
 % set contrast names and descriptions, then grab corresponding values,
 % descriptions, and indices from DAT
-connames = {'Hot - Mild' 'Win-Loss' 'WinLoss-NoRew'};
-cons =     {'Rating:Hot - Mild'
-            'Rating:HotMild Win-Loss'
-            'Rating:HotMild WinLoss - NoRew'}';
+connames = {'Down vs. Standard'
+            'Up vs. Standard'
+            'Up vs. Down'};
+cons =     {'down_vs_neutral_rating'
+            'up_vs_neutral_rating'
+            'up_vs_down_rating'}';
 [convals, ~, ~, descrip, wh_indx] = get_var(DAT, cons);
 
 % barplot_columns(convals, 'nofig', 'noviolin', 'colors', colors([1 3]));
@@ -50,7 +52,7 @@ drawnow, snapnow %drawnow updates figures with new gcf; snapnow takes a snapshot
 
 fprintf('Percent response: %3.0f%%\n', 100*sum(convals > 0) ./ size(convals, 1));
 
-%% Save
+%% Save Pain Ratings
 % -------------------------------------------------------------------------
 figdir = fullfile(basedir, 'figures');
 if ~exist(figdir, 'dir'), mkdir(figdir); end
@@ -67,20 +69,21 @@ create_figure('barplot', 1, 2);
 
 % Group averages
 % -------------------------------------------------------------------------
-wh = [2 1 3 5 4 6 8 7 9];  % reorder to make sense on plot 
+wh = [1 2 3];  % reorder to make sense on plot 
 bars(DAT, DAT.Subj_Level.names(wh), 'colors', colors, 'noviolin', 'nofig');
 ylabel('NPS Response');
-title('Group averages');
+title('NPS by Condition');
 
 % Contrasts
 % -------------------------------------------------------------------------
 subplot(1, 2, 2);
 
-connames = {'H - None' 'Hot - Mild' 'Win-Loss' 'WinLoss-NoRew'};
-cons =     {'Hot - None'
-            'Hot - Mild'
-            'HotMild Win-Loss'
-            'HotMild WinLoss - NoRew'}';
+connames = {'Down vs. Standard'
+            'Up vs. Standard'
+            'Up vs. Down'};
+cons =     {'down vs standard'
+            'up vs standard'
+            'up vs down'}';
 [convals, ~, ~, descrip, wh_indx] = get_var(DAT, cons);
 
 %barplot_columns(convals, 'nofig', 'noviolin', 'colors', colors([1 3]));
@@ -88,7 +91,7 @@ bars(DAT, DAT.Subj_Level.names(wh_indx), 'colors', colors([1 2 3 8]), 'noviolin'
 
 set(gca, 'XTickLabel', connames); %gca is get handle of current axis
 ylabel('NPS Response'); 
-title('Contrast values');
+title('NPS by Contrast');
 
 pos = get(gcf, 'Position');
 if pos(3) ./ pos(4) < 2
