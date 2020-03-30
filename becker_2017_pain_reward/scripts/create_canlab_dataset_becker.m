@@ -70,7 +70,7 @@
 
 % Becker, S., et al., Orbitofrontal cortex mediates pain inhibition by monetary reward. Social Cognitive and Affective Neuroscience, 2016.
 
-basedir = '/Users/lukie/Documents/canlab/NPSSR/NPSSR_contrast_images_local/2016_Becker_painreward_copes/';
+basedir = '/Users/lukie/Documents/canlab/NPSSR/NPSSR_contrast_images_local/becker_2017_pain_reward/';
 datadir = fullfile(basedir, 'results');
 
 cd(datadir)
@@ -157,7 +157,7 @@ DAT.Subj_Level.names = [DAT.Subj_Level.names connames]; % concatenate contrast n
 % add descriptions to the subject level description field for the contrasts
 DAT.Subj_Level.descrip(end+1) = {'Hot - No pain within-person contrast'}; 
 DAT.Subj_Level.descrip(end+1) = {'Hot - Mild within-person contrast'};
-DAT.Subj_Level.descrip(end+1) = {'Hot + Mild Reward gain - Loss within-person contrast'};  
+DAT.Subj_Level.descrip(end+1) = {'Hot + Mild Reward - Loss within-person contrast'};  
 DAT.Subj_Level.descrip(end+1) = {'Hot + Mild Reward or loss - No reward within-person contrast'};
 
 % Add variable types
@@ -169,13 +169,14 @@ DAT.Subj_Level.type = repmat({'numeric'}, 1, k); % get variable types
 %% check and write dataset
 
 % List variable names
+homepath='/Users/lukie/Documents/canlab/NPSSR/npssr_code/becker_2017_pain_reward/results';
+cd(homepath);
 get_var(DAT); %print variables to command windo
 
 write_text(DAT)
 
 %% SAVE
-
-save canlab_dataset_becker DAT
+save canlab_dataset_becker_2017_reward DAT
 
 
 
