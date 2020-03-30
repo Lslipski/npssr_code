@@ -29,7 +29,7 @@
 % --------------------------------------------------------
 
 % Base directory for whole study/analysis
-basedir = '/Users/lukie/Documents/canlab/NPSSR/NPSSR_contrast_images_local/becker_2017_pain_reward';
+basedir = '/Users/lukie/Documents/canlab/NPSSR/npssr_code/becker_2017_pain_reward';
 
 % Set user options
 % --------------------------------------------------------
