@@ -1,11 +1,11 @@
 %% Set up paths and load data
 
-basedir = '/Users/lukie/Documents/canlab/NPSSR/NPSSR_contrast_images_local/2016_Becker_painreward_copes';
-datadir = fullfile(basedir, 'data');
+basedir = '/Users/lukie/Documents/canlab/NPSSR/npssr_code/becker_2017_pain_reward';
+datadir = fullfile(basedir, 'results');
 
 cd(datadir)
 
-load canlab_dataset_becker DAT
+load canlab_dataset_becker_2017_reward DAT
 
 load rating_data.mat
 
@@ -26,7 +26,13 @@ DAT.Subj_Level.names = [DAT.Subj_Level.names descript];
 %     'Rating:WINMOD'
 
 % add descriptions for each behavioral condition
-DAT.Subj_Level.descrip = [DAT.Subj_Level.descrip; descript'];
+descriptions = {'LOSEMILD: Rating following loss, mild pain'
+                'LOSEMOD: Rating following loss, moderate pain'
+                'NEUTMILD: Rating following no reward/loss, mild pain'
+                'NEUTMOD: Rating following no reward/loss, moderate pain'
+                'WINMILD: Rating following win, mild pain'
+                'WINMOD: Rating following win, moderate pain'}
+DAT.Subj_Level.descrip = [DAT.Subj_Level.descrip; descriptions];
 
 % add ratings data to Subject level data only if the subject is in the
 % canlab data object already
@@ -69,6 +75,6 @@ write_text(DAT)
 
 % SAVE
 
-save canlab_dataset_becker DAT
+save canlab_dataset_becker_2017_reward DAT
 
 
