@@ -3,7 +3,7 @@ datadir = fullfile(basedir, 'results');
 
 cd(datadir)
 
-load canlab_dataset_REMI_ST DAT
+load canlab_dataset_atlas_2013_remi_open_hidden DAT
 
 %% Analysis: Pain ratings 
 
