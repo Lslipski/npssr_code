@@ -70,13 +70,13 @@
 
 % Becker, S., et al., Orbitofrontal cortex mediates pain inhibition by monetary reward. Social Cognitive and Affective Neuroscience, 2016.
 
-basedir = '/Users/lukie/Documents/canlab/NPSSR/NPSSR_contrast_images_local/becker_2017_pain_reward/';
+basedir = '/Users/lukie/Documents/canlab/NPSSR/npssr_code/becker_2017_pain_reward';
 datadir = fullfile(basedir, 'results');
 
 cd(datadir)
 
 % Customize to load data file
-datafilename = fullfile(datadir, 'npsvals_MSPainReward.txt');
+datafilename = fullfile(datadir, 'npsvals_reward_becker.txt');
 nheaderlines = 1;
 delim = '\t';
 dat = importdata(datafilename, delim, nheaderlines);
