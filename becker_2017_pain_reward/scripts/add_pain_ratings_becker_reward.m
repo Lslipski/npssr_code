@@ -5,7 +5,7 @@ datadir = fullfile(basedir, 'results');
 
 cd(datadir)
 
-load canlab_dataset_becker_2017_reward DAT
+load canlab_dataset_becker_2017_pain_reward DAT
 
 load rating_data.mat
 
@@ -75,6 +75,6 @@ write_text(DAT)
 
 % SAVE
 
-save canlab_dataset_becker_2017_reward DAT
+save canlab_dataset_becker_2017_pain_reward DAT
 
 

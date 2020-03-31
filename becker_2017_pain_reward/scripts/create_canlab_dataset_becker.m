@@ -176,7 +176,7 @@ get_var(DAT); %print variables to command windo
 write_text(DAT)
 
 %% SAVE
-save canlab_dataset_becker_2017_reward DAT
+save canlab_dataset_becker_2017_pain_reward DAT
 
 
 
