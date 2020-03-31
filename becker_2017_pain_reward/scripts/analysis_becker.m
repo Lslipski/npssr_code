@@ -1,24 +1,31 @@
 %% Load
 
-basedir = '/Users/lukie/Documents/canlab/NPSSR/NPSSR_contrast_images_local/2016_Becker_painreward_copes';
+basedir = '/Users/lukie/Documents/canlab/NPSSR/npssr_code/becker_2017_pain_reward/';
 datadir = fullfile(basedir, 'results');
 
 cd(datadir)
 
-load canlab_dataset_becker DAT
+load canlab_dataset_becker_2017_reward DAT
 
 %% Analysis: Pain ratings 
 
-colors = {[1 0 0] [1 .5 0] [0 1 0] [.5 1 0] [0 0 1] [0 .5 1]};
-
+colors = colorcube_colors(length(DAT.Subj_Level.names));
 create_figure('barplot', 1, 2);
 
 % Group averages
 % -------------------------------------------------------------------------
-wh = [15 14 17 16 19 18];  % reorder to make sense on plot; these correspond to contrasts of interest
+wh = [14 15 16 17 18 19];  % reorder to make sense on plot; these conditions
 bars(DAT, DAT.Subj_Level.names(wh), 'colors', colors, 'noviolin', 'nofig');
 ylabel('Pain ratings');
-title('Group averages');
+title('Condition Values');
+condnames={'MILD_L'
+           'MOD_L'
+           'MILD_N'
+           'MOD_N'
+           'MILD_W'
+           'MOD_W'}
+
+set(gca, 'XTickLabel', condnames);
 
 % Contrasts
 % -------------------------------------------------------------------------
@@ -61,24 +68,29 @@ saveas(gcf, fullfile(figdir, 'ratings_bars_with_points.png'));
 
 %% Analysis: NPS response
 
-colors = {[1 0 0] [1 .5 0] [.2 0 0] [0 1 0] [.5 1 0] [0 .2 0] [0 0 1] [0 .5 1] [0 0 .2]};
-
 create_figure('barplot', 1, 2);
 
 % Group averages
 % -------------------------------------------------------------------------
-wh = [2 1 3 5 4 6 8 7 9];  % reorder to make sense on plot 
+wh = [1 2 4 5 7 8];  % reorder to make sense on plot 
 bars(DAT, DAT.Subj_Level.names(wh), 'colors', colors, 'noviolin', 'nofig');
 ylabel('NPS Response');
-title('Group averages');
+title('Condition Values');
+condnames={'MILD_L'
+           'MOD_L'
+           'MILD_N'
+           'MOD_N'
+           'MILD_W'
+           'MOD_W'}
+
+set(gca, 'XTickLabel', condnames);
 
 % Contrasts
 % -------------------------------------------------------------------------
 subplot(1, 2, 2);
 
-connames = {'H - None' 'Hot - Mild' 'Win-Loss' 'WinLoss-NoRew'};
-cons =     {'Hot - None'
-            'Hot - Mild'
+connames = {'Hot - Mild' 'Win-Loss' 'WinLoss-NoRew'};
+cons =     {'Hot - Mild'
             'HotMild Win-Loss'
             'HotMild WinLoss - NoRew'}';
 [convals, ~, ~, descrip, wh_indx] = get_var(DAT, cons);
