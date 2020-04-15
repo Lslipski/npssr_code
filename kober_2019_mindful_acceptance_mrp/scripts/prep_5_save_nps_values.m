@@ -23,7 +23,7 @@ subjids = {'MRP01'
 
 % add conditions as variable names to the nps values table and save to
 % /results subfolder
-nps_table = array2table(T,'VariableNames',[DAT.contrastnames DAT.conditions]);
+nps_table = array2table(T,'VariableNames',[DAT.conditions DAT.contrastnames]);
 newnames = 'subjids';
 nps_table = addvars(nps_table, subjids', 'NewVariableNames', newnames); % add subject IDs as column
 
