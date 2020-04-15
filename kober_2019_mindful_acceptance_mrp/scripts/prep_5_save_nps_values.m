@@ -1,5 +1,5 @@
 % Grab NPS values from DAT (created in prep_xxx scripts).
-T = [DAT.npscontrasts]
+T = [DAT.npsresponse DAT.npscontrasts];
 
    
 
@@ -23,9 +23,9 @@ subjids = {'MRP01'
 
 % add conditions as variable names to the nps values table and save to
 % /results subfolder
-nps_table = array2table(T,'VariableNames',DAT.contrastnames)
-newnames = 'subjids'
-nps_table = addvars(nps_table, subjids', 'NewVariableNames', newnames) % add subject IDs as column
+nps_table = array2table(T,'VariableNames',[DAT.contrastnames DAT.conditions]);
+newnames = 'subjids';
+nps_table = addvars(nps_table, subjids', 'NewVariableNames', newnames); % add subject IDs as column
 
 
 save(fullfile(resultsdir,'npsvals_kober_2019_mindful_acceptance_mrp.mat'), 'nps_table') % save
