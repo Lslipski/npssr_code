@@ -28,6 +28,6 @@ newnames = 'subjids'
 nps_table = addvars(nps_table, subjids', 'NewVariableNames', newnames) % add subject IDs as column
 
 
-save(fullfile(resultsdir,'npsvals_bmrk3.mat'), 'nps_table') % save
+save(fullfile(resultsdir,'npsvals_kober_2019_mindful_acceptance_mrp.mat'), 'nps_table') % save
 printhdr('Saved npsvalues')
 sprintf('Results Directory: %s', resultsdir)
