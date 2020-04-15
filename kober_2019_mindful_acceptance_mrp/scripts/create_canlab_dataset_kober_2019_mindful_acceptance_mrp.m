@@ -31,18 +31,27 @@ DAT.Description.Missing_Values = NaN;
 DAT.Subj_Level.id = dat.nps_table.subjids;
 
 % Other variables
-DAT.Subj_Level.names = dat.nps_table.Properties.VariableNames(:); 
+DAT.Subj_Level.names = dat.nps_table.Properties.VariableNames(1:10); %leave subject IDs out
 
 % Descriptions, added to DAT.Subj_Level.descrip
 % -------------------------------------------------------------------------
 
-descrip = {'Acceptance vs. Reacting to painful stimuli'};
+descrip = {'Acceptance of negative image'
+           'Acceptance of neutral image'
+           'Acceptance of high Temperature'
+           'Acceptance of low Temperature'
+           'Constant'
+           'Reacting to negative image'
+           'Reacting to neutral image'
+           'Reacting to high Temperature'
+           'Reacting to low Temperature'
+           'Acceptance vs. Reacting to painful stimuli'};
         
 DAT.Subj_Level.descrip = descrip;
 
 %% ADD DATA to canlab_dataset object
 % -------------------------------------------------------------------------
-DAT.Subj_Level.data = table2array(dat.nps_table(:,1));
+DAT.Subj_Level.data = cell2mat(table2array(dat.nps_table(:,1:10)));
 
 %% Create contrast for up vs. down
 
