@@ -36,24 +36,22 @@ DAT.Subj_Level.names = dat.nps_table.Properties.VariableNames(1:10); %leave subj
 % Descriptions, added to DAT.Subj_Level.descrip
 % -------------------------------------------------------------------------
 
-descrip = {'Acceptance of negative image'
-           'Acceptance of neutral image'
-           'Acceptance of high Temperature'
-           'Acceptance of low Temperature'
-           'Constant'
-           'Reacting to negative image'
-           'Reacting to neutral image'
-           'Reacting to high Temperature'
-           'Reacting to low Temperature'
-           'Acceptance vs. Reacting to painful stimuli'};
+descrip = {'NPS: Acceptance of negative image'
+           'NPS: Acceptance of neutral image'
+           'NPS: Acceptance of high Temperature'
+           'NPS: Acceptance of low Temperature'
+           'NPS: Constant'
+           'NPS: Reacting to negative image'
+           'NPS: Reacting to neutral image'
+           'NPS: Reacting to high Temperature'
+           'NPS: Reacting to low Temperature'
+           'NPS: Acceptance vs. Reacting to painful stimuli'};
         
 DAT.Subj_Level.descrip = descrip;
 
 %% ADD DATA to canlab_dataset object
 % -------------------------------------------------------------------------
 DAT.Subj_Level.data = cell2mat(table2array(dat.nps_table(:,1:10)));
-
-%% Create contrast for up vs. down
 
 
 % Add variable types
