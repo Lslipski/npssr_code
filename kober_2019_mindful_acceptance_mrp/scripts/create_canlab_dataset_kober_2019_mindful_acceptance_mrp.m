@@ -45,7 +45,7 @@ descrip = {'NPS: Acceptance of negative image'
            'NPS: Reacting to neutral image'
            'NPS: Reacting to high Temperature'
            'NPS: Reacting to low Temperature'
-           'NPS: Acceptance vs. Reacting to painful stimuli'};
+           'Contrast NPS: Acceptance vs. Reacting to painful stimuli'};
         
 DAT.Subj_Level.descrip = descrip;
 
