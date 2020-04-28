@@ -52,12 +52,12 @@ subj_mean_data.dat = []; % clear mask from dat
 
 % this loops over all subject folders, imports images, averages STs, and
 % saves 
-for i = 1:34
+for p = 1:34
     
     % set data folder for this subject
-    datafolder = fullfile(datadir, ['sub' sprintf('%.0f', uniq_sid(i))])
+    datafolder = fullfile(datadir, ['sub' sprintf('%.0f', uniq_sid(p))])
     
-    % this loop takes all 70 ST images in a folder and loads into an fmri_data
+    % this loop takes all 70 ST images in a folder then loads into an fmri_data
     % object
     for i = 1:70
         [filepath, name, ext] = fileparts(x(i,:));
@@ -71,18 +71,26 @@ for i = 1:34
 
 
     % concatenate new subject data to grand fmri_data object
-    if i == 1
+    if p == 1
         subj_mean_data = sub_data_obj;
     else
         subj_mean_data = cat(subj_mean_data, sub_data_obj);
     end
+    
+    % save fmri data object with mean ST image for each of 34 subjects
+    DAT = subj_mean_data;
+    savefilename = fullfile(imgsdir, 'jepma_2018_ie2_ST_34subj.mat');
+    save(savefilename, 'DAT')
+    
+    clear sub_data_obj;
+    
+    sprintf('Iteration %d', p)
 
+    
 end 
 
-% save fmri data object with mean ST image for each of 34 subjects
-DAT = subj_mean_data;
-savefilename = fullfile(imgsdir, 'jepma_2018_ie2_ST_34subj.mat');
-save(savefilename, 'DAT')
+
+
 
 % bogdan's sample code:
 % ie2_dat_obj; % fmri_data object of single trial images
