@@ -1,5 +1,5 @@
 datadir = '/Volumes/f0040y1/npssr/';
-imgsdir = '/Users/lukie/Documents/canlab/NPSSR/NPSSR_contrast_images_local/jepma_2018_ie2'
+imgsdir = '/Users/lukie/Documents/canlab/NPSSR/NPSSR_contrast_images_local/jepma_2018_ie2/contrast_and_behavioral_to_use/'
 
 load(fullfile(imgsdir, 'IE2_34_betadirs_ratings.mat'));
 
@@ -39,8 +39,6 @@ subject_id = [1004
 993
 996];
 
-% get unique, ordered list of subjects
-uniq_sid = unique(subject_id);
 
 % get the list of 70 ST image names to import
 x = [med_vars.imgs{1}]
@@ -55,10 +53,9 @@ subj_mean_data.dat = []; % clear mask from dat
 for p = 1:34
     
     % set data folder for this subject
-    datafolder = fullfile(datadir, ['sub' sprintf('%.0f', uniq_sid(p))])
+    datafolder = fullfile(datadir, ['sub' sprintf('%.0f', subject_id(p))])
     
-    % this loop takes all 70 ST images in a folder then loads into an fmri_data
-    % object
+    % this loop takes all 70 ST images in a folder
     for i = 1:70
         [filepath, name, ext] = fileparts(x(i,:));
         newfile = [name ext];
@@ -67,19 +64,38 @@ for p = 1:34
 
     % create fmri data object of single trial images for this subject
     sub_data_obj = fmri_data(image_names);
-    sub_data_obj = mean(sub_data_obj)
-
-
-    % concatenate new subject data to grand fmri_data object
-    if p == 1
-        subj_mean_data = sub_data_obj;
-    else
-        subj_mean_data = cat(subj_mean_data, sub_data_obj);
-    end
     
-    % save fmri data object with mean ST image for each of 34 subjects
+    % divy up and average to get 1 fmri_dataset per condition per subject
+    %high cue
+    cue_vals = med_vars.X_Cue{p};
+    cue_data = cue_vals == 1;
+    get_sub_data = sub_data_obj.get_wh_image(cue_data);
+    subj_mean_data = mean(get_sub_data); % average 
+    % save fmri data object with mean ST image for high condition
     DAT = subj_mean_data;
-    savefilename = fullfile(imgsdir, 'jepma_2018_ie2_ST_34subj.mat');
+    subjstr = sprintf('%.0f', subject_id(p));
+    filen = ['high_cue_sub_' subjstr '.mat'];
+    savefilename = fullfile(imgsdir, filen);
+    save(savefilename, 'DAT')
+    
+    %neutral cue
+    cue_data = cue_vals == 0;
+    get_sub_data = sub_data_obj.get_wh_image(cue_data);
+    subj_mean_data = mean(get_sub_data); % average 
+    % save fmri data object with mean ST image for high condition
+    DAT = subj_mean_data;
+    filen = ['neutral_cue_sub_' subjstr '.mat'];
+    savefilename = fullfile(imgsdir, filen);
+    save(savefilename, 'DAT')
+    
+    %low cue
+    cue_data = cue_vals == -1;
+    get_sub_data = sub_data_obj.get_wh_image(cue_data);
+    subj_mean_data = mean(get_sub_data); % average 
+    % save fmri data object with mean ST image for high condition
+    DAT = subj_mean_data;
+    filen = ['low_cue_sub_' subjstr '.mat'];
+    savefilename = fullfile(imgsdir, filen);
     save(savefilename, 'DAT')
     
     clear sub_data_obj;
