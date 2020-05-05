@@ -65,7 +65,7 @@ DAT.Subj_Level.data = [DAT.Subj_Level.data table2array(ratings_table(:,:))];
 
 % array is prime(') to fit the size of the subj_level data (matrix algebra
 % will require this to apply contrasts to data)
-C = [0 1 -2 0 0;
+C = [0 1 -1 0 0;
      1 -1 0 0 0;
      1 0 -1 0 0;
      0 0 0 1 -1;]';
