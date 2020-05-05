@@ -88,7 +88,7 @@ for p = 1:34
     savefilename = fullfile(imgsdir, filen);
     save(savefilename, 'DAT')
     
-    %low cue
+    % low cue
     cue_data = cue_vals == -1;
     get_sub_data = sub_data_obj.get_wh_image(cue_data);
     subj_mean_data = mean(get_sub_data); % average 
@@ -97,6 +97,29 @@ for p = 1:34
     filen = ['low_cue_sub_' subjstr '.mat'];
     savefilename = fullfile(imgsdir, filen);
     save(savefilename, 'DAT')
+    
+    % high temp
+    temp_vals = med_vars.covs_TempRep4x{p}(:,1);
+    cue_data = temp_vals > 0.0;
+    get_sub_data = sub_data_obj.get_wh_image(cue_data);
+    subj_mean_data = mean(get_sub_data); % average 
+    % save fmri data object with mean ST image for hot temperature
+    DAT = subj_mean_data;
+    filen = ['high_temp_sub_' subjstr '.mat'];
+    savefilename = fullfile(imgsdir, filen);
+    save(savefilename, 'DAT')
+
+    % low temp
+    temp_vals = med_vars.covs_TempRep4x{p}(:,1);
+    cue_data = temp_vals < 0.0;
+    get_sub_data = sub_data_obj.get_wh_image(cue_data);
+    subj_mean_data = mean(get_sub_data); % average 
+    % save fmri data object with mean ST image for hot temperature
+    DAT = subj_mean_data;
+    filen = ['low_temp_sub_' subjstr '.mat'];
+    savefilename = fullfile(imgsdir, filen);
+    save(savefilename, 'DAT')
+    
     
     clear sub_data_obj;
     
