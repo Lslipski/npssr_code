@@ -18,7 +18,7 @@ DAT = canlab_dataset;
 
 % Fill in Experiment-level information
 % ------------------------------------------------------------------------
-DAT.Description.Experiment_Name = 'Jepma, M., Koban, L., Doorn, J., Jones, M., & Wager, T. D. (2018). Behavioural and neural evidence for self-reinforcing expectancy effects on pain. Nature Human Behaviour, 1?18.';
+DAT.Description.Experiment_Name = 'Jepma, M., Koban, L., Doorn, J., Jones, M., & Wager, T. D. (2018). Behavioural and neural evidence for self-reinforcing expectancy effects on pain. Nature Human Behaviour, 1:18.';
 DAT.Description.Missing_Values = NaN;
 
 
@@ -29,9 +29,12 @@ DAT.Subj_Level.id = nps_table.subjids;
 DAT.Subj_Level.names = {'low cue'
                         'neutral cue'
                         'high cue'
+                        'low temp'
+                        'high temp'
                         'neut_vs_low'
                         'high_vs_neut'
-                        'high_vs_low'}; 
+                        'high_vs_low'
+                        'hightemp_vs_lowtemp'}; 
 
 
 % Descriptions, added to DAT.Subj_Level.descrip
@@ -40,15 +43,18 @@ DAT.Subj_Level.names = {'low cue'
 descrip = {'Low Cue Condition'
            'Neutral Cue Condition'
            'High Cue Condition'
-           'Contrast: neutral vs. low'
-           'Contrast: high vs neutral'
-           'Contrast: high vs low'};
+           'Low Temperature Condition'
+           'High Temperature Condition'
+           'Contrast: neutral cue vs. low cue'
+           'Contrast: high cue vs neutral cue '
+           'Contrast: high cue vs low cue'
+           'Contrast: high temp vs low temp'};
         
 DAT.Subj_Level.descrip = descrip;
 
 %% ADD DATA to canlab_dataset object
 % -------------------------------------------------------------------------
-DAT.Subj_Level.data = table2array(nps_table(:,1:6));
+DAT.Subj_Level.data = table2array(nps_table(:,1:9));
 
 
 % Add variable types
