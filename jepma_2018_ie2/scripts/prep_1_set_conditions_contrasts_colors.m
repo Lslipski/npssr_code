@@ -129,7 +129,7 @@ DAT.functional_wildcard = {'*low_cue*.img' '*neutral_cue*.img' '*high_cue*.img' 
 DAT.contrasts = [-1 1 0 0 0;
                  0 -1 1 0 0;
                  -1 0 1 0 0;
-                 0 0 0 1 -1;];
+                 0 0 0 -1 1;];
     
 % Descriptive names for contrasts to be used in plots and tables. Avoid
 % special characters.
