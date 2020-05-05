@@ -1,4 +1,6 @@
 % load dataset from published study 
+a_set_up_paths_always_run_first
+
 x = load('/Users/lukie/Documents/canlab/NPSSR/npssr_code/jepma_2018_ie2/results/image_names_and_setup.mat');
 fprintf('Loaded dataset.\nConditions:\n');
 x.DAT.conditions
