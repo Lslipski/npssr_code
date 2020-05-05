@@ -36,12 +36,14 @@ subject_id = [1004
 993
 996];
 
-cue_type = {'high', 'neutral', 'low'}
+% cue_type = {'high_cue', 'neutral_cue', 'low_cue', 'high_temp' 'low_temp'}
+cue_type = {'high_temp' 'low_temp'} % added temps later so only running these for now
 
 for p = 1:34
-    for cue = 1:3
-        dat = load(fullfile(datadir, [char(cue_type(cue)), '_cue_sub_', sprintf('%.0f', subject_id(p)), '.mat']))
-        dat.DAT.fullpath = fullfile(savedir, [char(cue_type(cue)), '_cue_sub_', sprintf('%.0f', subject_id(p)), '.img']);
+    %for cue = 1:5 % when cue type above is being run on all 5
+     for cue = 1:2 % for only running on temps   
+        dat = load(fullfile(datadir, [char(cue_type(cue)), '_sub_', sprintf('%.0f', subject_id(p)), '.mat']))
+        dat.DAT.fullpath = fullfile(savedir, [char(cue_type(cue)), '_sub_', sprintf('%.0f', subject_id(p)), '.img']);
         write(dat.DAT)
     end
 end
