@@ -18,7 +18,7 @@ DAT = canlab_dataset;
 
 % Fill in Experiment-level information
 % ------------------------------------------------------------------------
-DAT.Description.Experiment_Name = '?Lopez-Sola, M. L., Geuter, S., Koban, L., Coan, J. A., & Wager, T. D. (2019). Brain mechanisms of social touch-induced analgesia in females.';
+DAT.Description.Experiment_Name = 'Lopez-Sola, M. L., Geuter, S., Koban, L., Coan, J. A., & Wager, T. D. (2019). Brain mechanisms of social touch-induced analgesia in females.';
 DAT.Description.Missing_Values = NaN;
 
 
