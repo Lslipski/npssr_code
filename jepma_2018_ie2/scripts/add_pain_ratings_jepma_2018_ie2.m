@@ -80,7 +80,7 @@ connames = {'neut_vs_low_beh'
 DAT.Subj_Level.descrip = [DAT.Subj_Level.descrip; condescrips];
 DAT.Subj_Level.names = [DAT.Subj_Level.names; connames];
 
-mydat = get_var(DAT, DAT.Subj_Level.names(7:11)); % get subject level data for each of the behavioral conditions
+mydat = get_var(DAT, DAT.Subj_Level.names(10:14)); % get subject level data for each of the behavioral conditions
 convals = mydat * C; % multiply the data by the contrasts to get behavioral values for each subject for each contrast
 
 %concatenate new contrast values to data field
