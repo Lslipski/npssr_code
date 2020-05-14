@@ -1,12 +1,13 @@
 %% Set up paths and load data
 a_set_up_paths_always_run_first;
 
-cd(datadir)
+cd(resultsdir)
 
 load canlab_dataset_lopezsola_2019_handholding_pain.mat DAT
 
 % only using intensity ratings; unpleasantness ratings are in BG:BH for baseline
 % and handholding respectively
+cd(datadir)
 ratings = xlsread('HH_behav_Jan2016_Marianne_03252019.xlsx',1,'BE:BF');
 
 
@@ -47,6 +48,8 @@ DAT.Subj_Level.type = repmat({'numeric'}, 1, k); % get variable types
 
 
 %% List variable names
+cd(resultsdir)
+
 get_var(DAT);
 
 % save csv files of data
