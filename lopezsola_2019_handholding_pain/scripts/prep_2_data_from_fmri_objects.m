@@ -1,6 +1,6 @@
 %% THIS IS an ad hoc script for organizing an existing set of fmri_data objects into
 % a cell array in DATA_OBJ
-x = load('/Users/lukie/Documents/canlab/NPSSR/NPSSR_contrast_images_local/lopezsola_2019_handholding_pain/LopezSola2019_HeatPainAll_BetaMaps_PisPartnerHH_BisBallholding.mat');
+x = load('/Users/lukie/Documents/canlab/NPSSR/NPSSR_contrast_images_local/lopezsola_2019_handholding_pain/dat_HH_images_1sthalf_and_NPSexp_LukeS_05082020.mat');
 
 subject_list = {'S418_OC1122'
 'S576_OC937'
@@ -37,7 +37,7 @@ dofullplot = 1;
 
 DATA_OBJ = {};
 
-DATA_OBJ = {x.dat_heatall_B x.dat_heatall_P};
+DATA_OBJ = {x.dat_heat1sthalf_B_forL x.dat_heat1sthalf_P_forL};
 
 n = length(DATA_OBJ);
 
