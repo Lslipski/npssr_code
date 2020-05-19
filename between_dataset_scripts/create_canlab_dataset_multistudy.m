@@ -16,11 +16,11 @@ dataset_names = {'atlas_2013_remi_open_hidden'
  % always specify NPS contrast index THEN behavioral contrast index
 dataset_contrast_indices = {[18 15]
                             [12 21]
-                            [0 0]
-                            [0 0]
-                            [0 0]
-                            [0 0]
-                            [0 0]};
+                            [6 12]
+                            [8 17]
+                            [12 21]
+                            [10 19]
+                            [3 6]};
                         
 if size(dataset_names,1) ~= size(dataset_contrast_indices,1)
     error('You must specify indices for contrasts of interest for all datasets')
@@ -30,22 +30,27 @@ end
 self_reg_results = canlab_dataset;
 self_reg_results.Subj_Level.data = {};
 
-for i=1:2%size(dataset_names, 1)
-    % load canlab dataset, get contrast names and data
+for i=1:size(dataset_names, 1)
+    % load canlab dataset
     cd(fullfile(basedir,dataset_names{i}, 'results'))
     load(fullfile(pwd, strcat('canlab_dataset_', dataset_names{i})))
     
+    %get contrast names and data
     ds_data_nps = DAT.Subj_Level.data(:, dataset_contrast_indices{i}(1));
     ds_data_beh = DAT.Subj_Level.data(:, dataset_contrast_indices{i}(2));
-
     ds_names = {DAT.Subj_Level.names{[dataset_contrast_indices{i}]}}
     ds_descrip = {DAT.Subj_Level.descrip{dataset_contrast_indices{i}}}
     
+    % append to canlab dataset vars
     self_reg_results.Subj_Level.data = [self_reg_results.Subj_Level.data ds_data_nps ds_data_beh]
     self_reg_results.Subj_Level.names = [self_reg_results.Subj_Level.names ds_names]
     self_reg_results.Subj_Level.descrip = [self_reg_results.Subj_Level.descrip ds_descrip]
 
-    cd ../..
-
 end
+
+
+% save canlab dataset
+cd(basedir);
+get_var(self_reg_results);
+save self_reg_combined self_reg_results
     
