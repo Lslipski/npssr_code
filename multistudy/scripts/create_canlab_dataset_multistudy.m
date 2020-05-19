@@ -1,6 +1,9 @@
 %% Create Between Subject Table with only Contrasts of Interest
 
 basedir = '/Users/lukie/Documents/canlab/NPSSR/npssr_code';
+results_dir = fullfile(basedir,'multistudy','results')
+
+max_subjects = 36;  % maximum numer of subjects in any of the given studies
 
 % list of folders to look through for nps and ratings data
 dataset_names = {'atlas_2013_remi_open_hidden'
@@ -28,12 +31,12 @@ end
              
 % initialize canlab dataset to hold all studies' data
 self_reg_results = canlab_dataset;
-self_reg_results.Subj_Level.data = {};
 
 for i=1:size(dataset_names, 1)
     % load canlab dataset
     cd(fullfile(basedir,dataset_names{i}, 'results'))
     load(fullfile(pwd, strcat('canlab_dataset_', dataset_names{i})))
+    [n, k] = size(DAT.Subj_Level.data);
     
     %get contrast names and data
     ds_data_nps = DAT.Subj_Level.data(:, dataset_contrast_indices{i}(1));
@@ -41,6 +44,14 @@ for i=1:size(dataset_names, 1)
     ds_names = {DAT.Subj_Level.names{[dataset_contrast_indices{i}]}}
     ds_descrip = {DAT.Subj_Level.descrip{dataset_contrast_indices{i}}}
     
+    % append NaN to datasets with fewer than the max subjects to account
+    % for differences in sample size between datasets
+    if n < max_subjects
+        nan_to_add = NaN(max_subjects - n, 1)
+        ds_data_nps = cat(1, ds_data_nps, nan_to_add)
+        ds_data_beh = cat(1, ds_data_beh, nan_to_add)
+    end
+
     % append to canlab dataset vars
     self_reg_results.Subj_Level.data = [self_reg_results.Subj_Level.data ds_data_nps ds_data_beh]
     self_reg_results.Subj_Level.names = [self_reg_results.Subj_Level.names ds_names]
@@ -48,9 +59,10 @@ for i=1:size(dataset_names, 1)
 
 end
 
+clear DAT;
 
 % save canlab dataset
-cd(basedir);
+cd(results_dir);
 get_var(self_reg_results);
-save self_reg_combined self_reg_results
+save self_reg_combined DAT
     
