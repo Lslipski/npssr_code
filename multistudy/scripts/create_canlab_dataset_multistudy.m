@@ -59,7 +59,7 @@ for i=1:size(dataset_names, 1)
 
 end
 
-clear DAT;
+DAT = self_reg_results
 
 % save canlab dataset
 cd(results_dir);
