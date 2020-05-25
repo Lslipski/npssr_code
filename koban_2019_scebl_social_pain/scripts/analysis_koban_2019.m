@@ -40,10 +40,11 @@ subplot(1, 2, 2);
 
 % set contrast names and descriptions, then grab corresponding values,
 % descriptions, and indices from DAT
-connames = {'Social High > Low'
-            'CS High > Low'};
-cons =     {'contrast_ratings_sochilo'
-            'contrast_ratings_cuehilo'}';
+connames = {'CS High > Low'
+            'Social High > Low'};
+        
+cons =     {'contrast_ratings_cuehilo'
+            'contrast_ratings_sochilo'}';
 [convals, ~, ~, descrip, wh_indx] = get_var(DAT, cons);
 
 % barplot_columns(convals, 'nofig', 'noviolin', 'colors', colors([1 3]));
