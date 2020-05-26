@@ -1,13 +1,27 @@
 %% Load multistudy canlab dataset with signature and behavioral data of interest
 resultsdir = '/Users/lukie/Documents/canlab/NPSSR/npssr_code/multistudy/results';
+figuresdir = '/Users/lukie/Documents/canlab/NPSSR/npssr_code/multistudy/figures';
 cd(resultsdir);
-load('self_reg_combined_zscored.mat');
+load('self_reg_combined.mat');
 
 %put into mydat so we can reformat
+[n, k] = size(mydat);
 mydat = DAT.Subj_Level.data;
 
 
-%% Produce Behavioral Bar Plots
+
+%% RESCALE by MAD (median abs. deviation) column-wise:
+mydat = mydat ./ repmat(mad(mydat), n, 1);
+
+%% Make imagination, social, and symbolic cues negative effects to match others
+ sign_switch = [5 6 7 8 9 10];
+ 
+ for col=1:size(sign_switch,2)
+     mydat(:,sign_switch(col)) = mydat(:,sign_switch(col)) * -1;
+ end
+
+
+%% Produce Behavioral Violin Plots
 
 % Get, reorder, and plot behavioral data
 % -------------------------------------------------------------------------
@@ -39,6 +53,7 @@ connames = connames(wh);
 beh_indices = find(contains(connames,'Beh'));
 beh_dat = mydat(:,beh_indices);
 beh_names = connames(beh_indices);
+    
 
 % how many significant?  For colors
 % ------------------------------------------------------------------------
@@ -54,12 +69,11 @@ xvals = 1:k;
 colors = repmat({[.5 .5 .7]}, 1, k - k2);        % non-significant 
 colors = [colors custom_colors([.7 0 0], [1 .7 0], k2)']; % significant
 
-% bars(DAT, DAT.Subj_Level.names{beh_indices}, 'colors', colors, 'noviolin', 'nofig');
 create_figure('Behavioral Pain Ratings')
 [h1, s1] = barplot_columns(beh_dat,'x', xvals, 'colors', colors, 'nofig');
 set(gca, 'XTickLabel', vnames);
 ylabel('Pain ratings');
-title('Pain Rating by Condition');
+title('Pain Rating by Study');
 
 pos = get(gcf, 'Position'); % get gcf gets the position of the current figure
 if pos(3) ./ pos(4) < 2
@@ -68,6 +82,64 @@ end
 set(gcf, 'Position', pos);
 
 drawnow, snapnow; %drawnow updates figures with new gcf; snapnow takes a snapshot for publishing
+
+%% Save Pain Plot
+% -------------------------------------------------------------------------
+saveas(gcf, fullfile(figuresdir, 'ratings_violin_with_points.fig'));
+
+
+%% Produce NPS Violin Plots
+% get new behavioral indices only
+nps_indices = find(contains(connames,'NPS'));
+nps_dat = mydat(:,nps_indices);
+nps_names = connames(nps_indices);
+    
+
+% how many significant?  For colors
+% ------------------------------------------------------------------------
+t = nanmean(nps_dat) ./ ste(nps_dat);
+p = 2 * tcdf(abs(t), sum(~isnan(nps_dat)) - 1, 'upper'); % two-tailed
+
+k2 = sum(p < .05);
+[n, k] = size(nps_dat);
+
+vnames = format_strings_for_legend(nps_names);
+
+xvals = 1:k;
+colors = repmat({[.5 .5 .7]}, 1, k - k2);        % non-significant 
+colors = [colors custom_colors([.7 0 0], [1 .7 0], k2)']; % significant
+
+create_figure('NPS Responses by Study')
+[h1, s1] = barplot_columns(nps_dat,'x', xvals, 'colors', colors, 'nofig');
+set(gca, 'XTickLabel', vnames);
+ylabel('NPS Response');
+title('NPS Response by Study');
+
+pos = get(gcf, 'Position'); % get gcf gets the position of the current figure
+if pos(3) ./ pos(4) < 2
+    pos(3) = pos(3) .* 2.5;
+end
+set(gcf, 'Position', pos);
+
+drawnow, snapnow; %drawnow updates figures with new gcf; snapnow takes a snapshot for publishing
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 %% Produce ranked dataset
@@ -84,6 +156,9 @@ for i = 1:c
     ds.DAT.Subj_Level.data(:,i) = myrankdat;
 end
 
-
+% get spearman correlations for NPS + pain ratings pairs
+for col = 1:2:size(ds.DAT.Subj_Level.data,2)
+    subdata = ds.DAT.Subj_Level.data(:,col:col+1)
+end
 
 
