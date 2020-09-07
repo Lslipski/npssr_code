@@ -12,16 +12,16 @@ create_figure('barplot', 1, 2);
 
 % Group averages
 % -------------------------------------------------------------------------
-wh = [1 2 3 4 5 6];  % reorder to make sense on plot; these conditions
+wh = [2 1 4 3 6 5];  % reorder to make sense on plot; these conditions
 bars(DAT, DAT.Subj_Level.names(wh), 'colors', colors, 'noviolin', 'nofig');
 ylabel('Pain ratings');
 title('Condition Values');
-condnames={'Hot'
-           'Warm'
-           'Open'
+condnames={'Warm'
+           'Hot'
            'Hidden'
-           'Drug'
-           'NoDrug'}
+           'Open'
+           'NoDrug'
+           'Drug'}
 
 set(gca, 'XTickLabel', condnames);
 
