@@ -28,7 +28,7 @@ dataset_keys = {%'remi'
                  %'roy_emomod_2009'
                  };
              
-% initialize canlab dataset to hold all studies' data
+% initialize cell arrays to hold all studies' data
 multistudy_contrasts_data_scaled = {};
 multistudy_contrasts_names={};
                         
