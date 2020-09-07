@@ -41,7 +41,7 @@ DAT = struct();
 % contain a string specifying the condition name to be used in plots and
 % tables. This does not have to correspond to an image/directory name.
 
-DAT.conditions = {'neg_vs_neut'} % 'neg_vs_pos' 'pos_vs_neut'};
+DAT.conditions = {'neg_vs_neu' 'neg_vs_pos' 'pos_vs_neu'};
 
 DAT.conditions = format_strings_for_legend(DAT.conditions);
 
@@ -82,7 +82,7 @@ DAT.conditions = format_strings_for_legend(DAT.conditions);
 % condition. 
 % If you do not have subfolders, it is OK to leave this empty, i.e., DAT.subfolders = {};
 
-DAT.subfolders = {'**'}% 'neg_vs_pos/subj*' 'pos_vs_neut/subj*'};
+DAT.subfolders = {'neg_vs_neu/*' 'neg_vs_pos/*' 'pos_vs_neu/*'}; % 'neg_vs_pos/subj*' 'pos_vs_neut/subj*'};
 
 % Names of wildcard (expression with *, [1-9], 
 % Enter a cell array { } with one cell per condition.  Each cell should
@@ -90,7 +90,7 @@ DAT.subfolders = {'**'}% 'neg_vs_pos/subj*' 'pos_vs_neut/subj*'};
 % condition. 
 
 DAT.structural_wildcard = {};
-DAT.functional_wildcard = {'*.img'};
+DAT.functional_wildcard = {'con_0013.img*' 'con_0015.img*' 'con_0014.img*'};
 
 % Set Contrasts
 % ------------------------------------------------------------------------
