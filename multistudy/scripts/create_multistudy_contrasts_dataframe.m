@@ -42,7 +42,7 @@ for i=1:size(dataset_names, 1)
     [worthless, len] = size(contrast_names);
     this_data = [];
     for q = 1:len
-        this_contrast = strcat(dataset_keys(i),'_', contrast_names{q});
+        this_contrast = char(strcat(dataset_keys(i),'_', contrast_names{q}));
         this_data = contrasts.DATA_OBJ_CON{q};
         [n, k] = size(this_data);
         
@@ -61,7 +61,7 @@ for i=1:size(dataset_names, 1)
         
         % add newly formatted contrast to full dataset
         multistudy_contrasts_data{end+1} = fmri_ds;
-        multistudy_contrasts_names{end+1} = fmri_ds.image_names;
+        multistudy_contrasts_names{end+1} = [fmri_ds.image_names];
         
     end
 
