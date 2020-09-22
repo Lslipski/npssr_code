@@ -5,7 +5,7 @@ datadir = fullfile(basedir, 'results');
 
 cd(datadir)
 
-load canlab_dataset_becker_2017_reward DAT
+load canlab_dataset_becker_2017_pain_reward DAT
 
 %% Analysis: Pain ratings 
 
@@ -33,7 +33,7 @@ subplot(1, 2, 2);
 
 % set contrast names and descriptions, then grab corresponding values,
 % descriptions, and indices from DAT
-connames = {'Hot - Mild' 'Win-Loss' 'WinLoss-NoRew'};
+connames = {'Hot - Mild' 'Win-Loss' 'Intxn'};
 cons =     {'Rating:Hot - Mild'
             'Rating:HotMild Win-Loss'
             'Rating:HotMild WinLoss - NoRew'}';
@@ -45,6 +45,7 @@ bars(DAT, DAT.Subj_Level.names(wh_indx), 'colors', colors([1 3 5]), 'noviolin', 
 % clean up X axis and add title
 set(gca, 'XTickLabel', connames); % gca is to get handle of current axis
 ylabel('Pain ratings');
+xlabel('Contrast');
 title('Contrast values');
 
 pos = get(gcf, 'Position'); % get gcf gets the position of the current figure
@@ -89,7 +90,7 @@ set(gca, 'XTickLabel', condnames);
 % -------------------------------------------------------------------------
 subplot(1, 2, 2);
 
-connames = {'Hot - Mild' 'Win-Loss' 'WinLoss-NoRew'};
+connames = {'Hot - Mild' 'Win-Loss' 'Intxn'};
 cons =     {'Hot - Mild'
             'HotMild Win-Loss'
             'HotMild WinLoss - NoRew'}';
@@ -100,6 +101,7 @@ bars(DAT, DAT.Subj_Level.names(wh_indx), 'colors', colors([1 2 3 8]), 'noviolin'
 
 set(gca, 'XTickLabel', connames); %gca is get handle of current axis
 ylabel('NPS Response'); 
+xlabel('Contrast');
 title('Contrast values');
 
 pos = get(gcf, 'Position');
