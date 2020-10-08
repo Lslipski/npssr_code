@@ -196,7 +196,7 @@ vnames = format_strings_for_legend(siips_names);
 
 xvals = 1:k;
 colors = repmat({[.5 .5 .7]}, 1, k - k2);        % non-significant 
-colors = [colors custom_colors([.7 0 0], [1 .7 0], k2)']; % significant
+colors = [custom_colors([.7 0 0], [1 .7 0], k2)' colors]; % significant
 
 create_figure('SIIPS Responses by Study')
 [h1, s1] = barplot_columns(siips_dat,'x', xvals, 'colors', colors, 'nofig');
