@@ -82,7 +82,7 @@ DAT.conditions = format_strings_for_legend(DAT.conditions);
 % condition. 
 % If you do not have subfolders, it is OK to leave this empty, i.e., DAT.subfolders = {};
 
-DAT.subfolders = {'neg_vs_neu/*' 'neg_vs_pos/*' 'pos_vs_neu/*'}; % 'neg_vs_pos/subj*' 'pos_vs_neut/subj*'};
+DAT.subfolders = {'neg_vs_neu/' 'neg_vs_pos/' 'pos_vs_neu/'}; 
 
 % Names of wildcard (expression with *, [1-9], 
 % Enter a cell array { } with one cell per condition.  Each cell should
@@ -90,7 +90,7 @@ DAT.subfolders = {'neg_vs_neu/*' 'neg_vs_pos/*' 'pos_vs_neu/*'}; % 'neg_vs_pos/s
 % condition. 
 
 DAT.structural_wildcard = {};
-DAT.functional_wildcard = {'con_0013.img*' 'con_0015.img*' 'con_0014.img*'};
+DAT.functional_wildcard = {'*con*' '*con*' '*con*'};
 
 % Set Contrasts
 % ------------------------------------------------------------------------
@@ -126,7 +126,9 @@ DAT.functional_wildcard = {'con_0013.img*' 'con_0015.img*' 'con_0014.img*'};
 
 
 
-DAT.contrasts = [];
+DAT.contrasts = [1 0 0;
+                 0 1 0;
+                 0 0 1;];
     
 % Descriptive names for contrasts to be used in plots and tables. Avoid
 % special characters.

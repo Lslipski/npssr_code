@@ -8,13 +8,14 @@ max_subjects = 36;  % maximum numer of subjects in any of the given studies
 % list of folders to look through for nps and ratings data
 dataset_names = {%'atlas_2013_remi_open_hidden'
                   'becker_2017_pain_reward'
+                  %'becker_2016_pain_control'
                   'bmrk3'
                   'jepma_2018_ie2'
 %                  'koban_2019_scebl_social_pain'
                   'kober_2019_mindful_acceptance_mrp'
                   'lopezsola_2019_handholding_pain'
                  %'ma_2016_pain_citalopram'
-                 %'roy_emomod_2009'
+                 'roy_emomod_2009'
                  };
              
 dataset_keys = {%'remi'
@@ -25,7 +26,7 @@ dataset_keys = {%'remi'
                   'mindful_acceptance'
                   'handholding'
                  %'ma_2016_pain_citalopram'
-                 %'roy_emomod_2009'
+                 'roy_emomod_2009'
                  };
              
 % initialize cell arrays to hold all studies' data
