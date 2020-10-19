@@ -1,4 +1,4 @@
-%% Create Between Subject Table with only Contrasts of Interest
+% Create Between Subject Table with only Contrasts of Interest
 
 basedir = '/Users/lukie/Documents/canlab/NPSSR/npssr_code';
 results_dir = fullfile(basedir,'multistudy','results')
@@ -7,10 +7,12 @@ max_subjects = 36;  % maximum numer of subjects in any of the given studies
 
 % list of folders to look through for nps and ratings data
 dataset_names = {%'atlas_2013_remi_open_hidden'
+                  %'atlas_2010_exp'
                   'becker_2017_pain_reward'
-                  %'becker_2016_pain_control'
+                  'becker_2016_pain_control'
                   'bmrk3'
                   'jepma_2018_ie2'
+                  %'geuter_2012_placebo'
 %                  'koban_2019_scebl_social_pain'
                   'kober_2019_mindful_acceptance_mrp'
                   'lopezsola_2019_handholding_pain'
@@ -19,12 +21,15 @@ dataset_names = {%'atlas_2013_remi_open_hidden'
                  };
              
 dataset_keys = {%'remi'
-                  'pain_reward'
-                  'bmrk3'
-                  'ie2'
-%                  'social_pain'
-                  'mindful_acceptance'
-                  'handholding'
+                % 'exp'
+                 'pain_reward'
+                 'pain_control' 
+                 'bmrk3'
+                 'ie2'
+                % 'placebo'
+%                 'social_pain'
+                 'mindful_acceptance'
+                 'handholding'
                  %'ma_2016_pain_citalopram'
                  'roy_emomod_2009'
                  };
