@@ -143,8 +143,10 @@ lopezsola_meaning_pain_ratings = vertcat(mycontrast,  to_pad);
 lopezsola_meaning_pain_ratings_names = { 'lopezsola_meaning_con_beh_acc_hot_vs_rea_hot'};
 
 
+%% combine pain ratings from all studies
+multistudy_pain_ratings = [jepma_pain_ratings becker_reward_ratings becker_2016_pain_control_ratings bmrk3_pain_ratings...
+    roy_emomod_pain_ratings lopezsola_handholding_pain_ratings kober_mindful_acc_pain_ratings lopezsola_meaning_pain_ratings];
 
-
-
+size(multistudy_pain_ratings)
 
 
