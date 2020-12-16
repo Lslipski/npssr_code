@@ -20,9 +20,14 @@ jepma_pain_ratings_names = { 'ie2_high_vs_low_beh'};
 
 
 %% atlas_2013_remi_open_hidden: 
-remi_subs = {'remi453' 'remi855b' 'remi1126' 'remi1348' 'remi1495' 'remi1567' 'remi1902' 'remi1919' 'remi2158' 'remi2280' 'remi2363'} 
-%only 10 subjects with both conditions of brain data and pain. Bringing up
-%to Tor tomorrow on 11/19/20
+cd(fullfile(basedir, 'atlas_2013_remi_open_hidden/results'));
+load('canlab_dataset_atlas_2013_remi_open_hidden.mat');
+beh_cons = {'pain_ratings_drug'};
+[n, k] = size(DAT.get_var(beh_cons));
+nanpad = max_subjects - n;
+to_pad = NaN(nanpad, k);
+atlas_remi_pain_ratings = vertcat(DAT.get_var(beh_cons),  to_pad);
+atlas_remi_pain_ratings_names = {'atlas_remi_hot_drug'};
 
 %% becker_2017_pain_reward
 % pain ratings stored in
@@ -60,13 +65,13 @@ becker_2016_pain_control_ratings_names = {'becker_pain_control_meanVAS_last_pain
 % corresponding brain contrast in dataframe: 'bmrk3_up vs standard' 
 cd(fullfile(basedir, 'bmrk3/results/'));
 load('canlab_dataset_bmrk3.mat');
-beh_cons = {'up_vs_down_rating'};
+beh_cons = {'up_vs_neutral_rating'};
 
 [n, k] = size(DAT.get_var(beh_cons));
 nanpad = max_subjects - n;
 to_pad = NaN(nanpad, k);
 bmrk3_pain_ratings = vertcat(DAT.get_var(beh_cons),  to_pad);
-bmrk3_pain_ratings_names = { 'bmrk3_up_vs_down_rating'};
+bmrk3_pain_ratings_names = { 'bmrk3_up_vs_neutral_rating'};
 
 %% roy_emomod_2009
 % NPSSR/npssr_code/roy_2009_iaps_pain/results/canlab_dataset_roy_emomod_2009.mat
@@ -110,7 +115,7 @@ nanpad = max_subjects - n;
 to_pad = NaN(nanpad, k);
 
 kober_mindful_acc_pain_ratings = vertcat(DAT.get_var(beh_cons),  to_pad);
-kober_mindful_acc_pain_ratings_names = { 'kober_mindful_acc_con_beh_acc_hot_vs_rea_hot'};
+kober_mindful_acc_pain_ratings_names = { 'kober_mindful_acc_hot_vs_rea_hot'};
 
 %% lopezsola_2018_pain_meaning
 % NPSSR/npssr_code/lopezsola_2018_pain_meaning/results/canlab_dataset_lopezsola_2018_pain_meaning.mat
@@ -140,13 +145,21 @@ nanpad = max_subjects - n;
 to_pad = NaN(nanpad, k);
 
 lopezsola_meaning_pain_ratings = vertcat(mycontrast,  to_pad);
-lopezsola_meaning_pain_ratings_names = { 'lopezsola_meaning_con_beh_acc_hot_vs_rea_hot'};
+lopezsola_meaning_pain_ratings_names = { 'lopezsola_meaning_vs_no_meaning'};
 
 
-%% combine pain ratings from all studies
-multistudy_pain_ratings = [jepma_pain_ratings becker_reward_ratings becker_2016_pain_control_ratings bmrk3_pain_ratings...
+%% combine pain ratings from all studies (using ms for multistudy)
+ms_ratings.ratings = [atlas_remi_pain_ratings jepma_pain_ratings becker_reward_ratings becker_2016_pain_control_ratings bmrk3_pain_ratings...
     roy_emomod_pain_ratings lopezsola_handholding_pain_ratings kober_mindful_acc_pain_ratings lopezsola_meaning_pain_ratings];
+ms_ratings.names = [atlas_remi_pain_ratings_names jepma_pain_ratings_names becker_reward_ratings_names becker_2016_pain_control_ratings_names bmrk3_pain_ratings_names...
+    roy_emomod_pain_ratings_names lopezsola_handholding_pain_ratings_names kober_mindful_acc_pain_ratings_names lopezsola_meaning_pain_ratings_names];
 
-size(multistudy_pain_ratings)
+size(ms_ratings.ratings)
+
+% %% load corresponding brain contrasts from multistudy_contrasts
+% load('/Users/lukie/Documents/canlab/NPSSR/npssr_code/multistudy/results/multistudy_contrasts_16-Nov-2020.mat');
+% braincons = [16 3 5 13 22 20 19 24]
+% ms_brain = multistudy_contrasts.data(braincons)
+% clear multistudy_contrasts;
 
 

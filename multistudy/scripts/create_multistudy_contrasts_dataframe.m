@@ -83,6 +83,7 @@ multistudy_contrasts.contrast_names = multistudy_contrasts_names;
 
 savename = strcat('multistudy_contrasts_', date, '.mat')
 save(fullfile(results_dir, savename), 'multistudy_contrasts') % save
+pwd % save location
 
 
 cd(results_dir)
