@@ -41,7 +41,7 @@ a2_set_default_options
 
 cd(basedir)
 
-datadir = '/Users/lukie/Documents/canlab/NPSSR/NPSSR_contrast_images_local/atlas_2013_remi_open_hidden/contrasts_used_in_regulation_study';
+datadir = '/Users/lukie/Documents/canlab/NPSSR/NPSSR_contrast_images_local/atlas_2013_remi_open_hidden/'
 resultsdir = fullfile(basedir, 'results');
 scriptsdir = fullfile(basedir, 'scripts');
 figsavedir = fullfile(resultsdir, 'figures');
