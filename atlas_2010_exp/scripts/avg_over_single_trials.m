@@ -8,7 +8,7 @@
 datadir = '/Users/lukie/Documents/canlab/NPSSR/NPSSR_contrast_images_local/atlas_2010_exp/single_trial_data';
 ratingsdir = '/Users/lukie/Documents/canlab/NPSSR/NPSSR_contrast_images_local/atlas_2010_exp/single_trial_data/ratings';
 savedir = '/Users/lukie/Documents/canlab/NPSSR/NPSSR_contrast_images_local/atlas_2010_exp';
-resultsdir = '/Users/lukie/Documents/canlab/NPSSR/npssr_code/atlas_2013_remi_open_hidden/results';
+resultsdir = '/Users/lukie/Documents/canlab/NPSSR/npssr_code/atlas_2010_exp/results';
 currentdir = pwd;
 
 % load pain ratings
@@ -99,6 +99,7 @@ write(med_temp_low_cue);
 
 % save pain ratings canlab_dataset object
 pain_ratings_file = fullfile(resultsdir, 'canlab_dataset_atlas_2010_exp.mat');
+save(pain_ratings_file, 'pain_ratings');
 
 
 
