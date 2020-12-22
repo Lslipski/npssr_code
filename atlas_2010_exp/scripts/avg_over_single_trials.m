@@ -67,6 +67,16 @@ for i = 1:n
     my_med_high = mean(dat.dat(:,med_temp_high_cue_trials),2);
     my_med_low = mean(dat.dat(:,med_temp_low_cue_trials),2);
     
+    %save both condition images
+    high_condition = fmri_data;
+    high_condition.dat = my_med_high;
+    high_condition.fullpath = fullfile(savedir, 'conditions',strcat(mysub, '_medtemp_highcue.nii'));
+    write(high_condition);
+    
+    low_condition = fmri_data;
+    low_condition.dat = my_med_low;
+    low_condition.fullpath = fullfile(savedir, 'conditions',strcat(mysub, '_medtemp_lowcue','.nii'));
+    write(low_condition);
     % update fmri_data objects with new data for archive
     med_temp_high_cue.dat = [med_temp_high_cue.dat my_med_high];
     med_temp_low_cue.dat  = [med_temp_low_cue.dat my_med_low];
