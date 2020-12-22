@@ -99,7 +99,8 @@ write(med_temp_low_cue);
 
 % save pain ratings canlab_dataset object
 pain_ratings_file = fullfile(resultsdir, 'canlab_dataset_atlas_2010_exp.mat');
-save(pain_ratings_file, 'pain_ratings');
+DAT = pain_ratings;
+save(pain_ratings_file, 'DAT');
 
 
 
