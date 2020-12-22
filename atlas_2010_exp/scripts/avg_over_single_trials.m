@@ -26,7 +26,7 @@ med_temp_low_cue.dat = [];
 
 % initialize canlab_data object to store pain ratings for each subject
 pain_ratings = canlab_dataset;
-pain_ratings.Subj_Level.names = cell(1, n);
+pain_ratings.Subj_Level.names = {'HiCue_v_LowCue'};
 pain_ratings.Subj_Level.type = 'int';
 pain_ratings.Description.Experiment_Name = 'Atlas 2010 EXP';
 pain_ratings.Description.Event_Level = {};
@@ -85,7 +85,6 @@ for i = 1:n
     % save pain ratings to canlab_dataset_obj
     pain_ratings.Subj_Level.data = [pain_ratings.Subj_Level.data rat_contrast];
     pain_ratings.Subj_Level.id{i} = mysub;
-    pain_ratings.Subj_Level.names = 'HiCue_v_LowCue';
     
     
     clear dat;
