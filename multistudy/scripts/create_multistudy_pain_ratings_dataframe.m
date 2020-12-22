@@ -29,6 +29,16 @@ to_pad = NaN(nanpad, k);
 atlas_remi_pain_ratings = vertcat(DAT.get_var(beh_cons),  to_pad);
 atlas_remi_pain_ratings_names = {'atlas_remi_hot_drug'};
 
+%% atlas_2013_exp: 
+cd(fullfile(basedir, 'atlas_2010_exp/results'));
+load('canlab_dataset_atlas_2010_exp.mat');
+beh_cons = {'HiCue_v_LowCue'};
+[n, k] = size(DAT.Subj_Level.data');
+nanpad = max_subjects - n;
+to_pad = NaN(nanpad, k);
+atlas_exp_pain_ratings = vertcat(DAT.Subj_Level.data',  to_pad);
+atlas_exp_pain_ratings_names = {'atlas_exp_high_v_low'};
+
 %% becker_2017_pain_reward
 % pain ratings stored in
 % NPSSR/npssr_code/becker_2017_pain_reward/results/canlab_dataset_becker_2017_pain_reward.mat
@@ -149,9 +159,9 @@ lopezsola_meaning_pain_ratings_names = { 'lopezsola_meaning_vs_no_meaning'};
 
 
 %% combine pain ratings from all studies (using ms for multistudy)
-ms_ratings.ratings = [atlas_remi_pain_ratings jepma_pain_ratings becker_reward_ratings becker_2016_pain_control_ratings bmrk3_pain_ratings...
+ms_ratings.ratings = [atlas_remi_pain_ratings atlas_exp_pain_ratings jepma_pain_ratings becker_reward_ratings becker_2016_pain_control_ratings bmrk3_pain_ratings...
     roy_emomod_pain_ratings lopezsola_handholding_pain_ratings kober_mindful_acc_pain_ratings lopezsola_meaning_pain_ratings];
-ms_ratings.names = [atlas_remi_pain_ratings_names jepma_pain_ratings_names becker_reward_ratings_names becker_2016_pain_control_ratings_names bmrk3_pain_ratings_names...
+ms_ratings.names = [atlas_remi_pain_ratings_names atlas_exp_pain_ratings_names jepma_pain_ratings_names becker_reward_ratings_names becker_2016_pain_control_ratings_names bmrk3_pain_ratings_names...
     roy_emomod_pain_ratings_names lopezsola_handholding_pain_ratings_names kober_mindful_acc_pain_ratings_names lopezsola_meaning_pain_ratings_names];
 
 size(ms_ratings.ratings)

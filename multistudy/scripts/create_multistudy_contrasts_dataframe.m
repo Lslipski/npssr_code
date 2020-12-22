@@ -7,7 +7,7 @@ max_subjects = 36;  % maximum numer of subjects in any of the given studies
 
 % list of folders to look through for nps and ratings data
 dataset_names = {'atlas_2013_remi_open_hidden'
-                  %'atlas_2010_exp'
+                  'atlas_2010_exp'
                   'becker_2017_pain_reward'
                   'becker_2016_pain_control'
                   'bmrk3'
@@ -22,7 +22,7 @@ dataset_names = {'atlas_2013_remi_open_hidden'
                  };
              
 dataset_keys = {'remi'
-                % 'exp'
+                 'exp'
                  'pain_reward'
                  'pain_control' 
                  'bmrk3'
