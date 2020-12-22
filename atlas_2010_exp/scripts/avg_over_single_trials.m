@@ -85,6 +85,7 @@ for i = 1:n
     % save pain ratings to canlab_dataset_obj
     pain_ratings.Subj_Level.data = [pain_ratings.Subj_Level.data rat_contrast];
     pain_ratings.Subj_Level.id{i} = mysub;
+    pain_ratings.Subj_Level.names = 'HiCue_v_LowCue';
     
     
     clear dat;
