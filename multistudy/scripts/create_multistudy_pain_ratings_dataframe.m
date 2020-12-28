@@ -12,7 +12,7 @@ origdir = pwd;
 % corresponding brain contrast in dataframe: 'ie2_high vs low' 
 cd(fullfile(basedir, '/jepma_2018_ie2/results/'));
 load('canlab_dataset_jepma_2018_ie2');
-beh_cons = {'high_vs_low_beh'} %only keeping high vs low for now, not {'neut_vs_low_beh' 'high_vs_neut_beh' }
+beh_cons = {'high_vs_low_beh'}; %only keeping high vs low for now, not {'neut_vs_low_beh' 'high_vs_neut_beh' }
 [n, k] = size(DAT.get_var(beh_cons));
 nanpad = max_subjects - n;
 to_pad = NaN(nanpad, k);
