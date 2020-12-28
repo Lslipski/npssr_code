@@ -1,7 +1,7 @@
 %% Set up paths and load data
 
 basedir = '/Users/lukie/Documents/canlab/NPSSR/npssr_code/koban_2019_scebl_social_pain/'
-rawdir = '/Users/lukie/Documents/canlab/NPSSR/NPSSR_contrast_images_local/koban_2019_scebl_social_pain/results/IndivContrasts_fromModel6/results';
+rawdir = '/Users/lukie/Documents/canlab/NPSSR/NPSSR_contrast_images_local/koban_2019_scebl_social_pain/data/pain_ratings/';
 datadir = fullfile(basedir, 'results');
 
 cd(datadir)
