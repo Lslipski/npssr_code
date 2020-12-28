@@ -3,6 +3,7 @@
 % multistudy contrasts dataframe.
 basedir = '/Users/lukie/Documents/canlab/NPSSR/npssr_code';
 max_subjects = 36;  % maximum numer of subjects in any of the given studies
+origdir = pwd;
 
 
 %% jepma_2018_ie2:
@@ -165,6 +166,8 @@ ms_ratings.names = [atlas_remi_pain_ratings_names atlas_exp_pain_ratings_names j
     roy_emomod_pain_ratings_names lopezsola_handholding_pain_ratings_names kober_mindful_acc_pain_ratings_names lopezsola_meaning_pain_ratings_names];
 
 size(ms_ratings.ratings)
+
+cd(origdir);
 
 % %% load corresponding brain contrasts from multistudy_contrasts
 % load('/Users/lukie/Documents/canlab/NPSSR/npssr_code/multistudy/results/multistudy_contrasts_16-Nov-2020.mat');
