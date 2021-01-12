@@ -90,7 +90,7 @@ DAT.subfolders = {'neg_vs_neu/' 'neg_vs_pos/' 'pos_vs_neu/'};
 % condition. 
 
 DAT.structural_wildcard = {};
-DAT.functional_wildcard = {'*con*' '*con*' '*con*'};
+DAT.functional_wildcard = {'*con*.img*' '*con*.img*' '*con*.img*'};
 
 % Set Contrasts
 % ------------------------------------------------------------------------
