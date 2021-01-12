@@ -2,6 +2,7 @@
 % combining the relevant sets into a data frame for analysis alongside the
 % multistudy contrasts dataframe.
 basedir = '/Users/lukie/Documents/canlab/NPSSR/npssr_code';
+savedir = '/Users/lukie/Documents/canlab/NPSSR/npssr_code/multistudy/results';
 max_subjects = 36;  % maximum numer of subjects in any of the given studies
 origdir = pwd;
 
@@ -69,7 +70,7 @@ nanpad = max_subjects - n;
 to_pad = NaN(nanpad, k);
 becker_2016_pain_control_ratings = vertcat(DAT.Subj_Level.data(:,2),  to_pad);
 becker_2016_pain_control_ratings(21,:) = []; % remove subject 21
-becker_2016_pain_control_ratings_names = {'becker_pain_control_meanVAS_last_pain'};
+becker_2016_pain_control_ratings_names = {'becker_pain_control_vs_uncontrol'};
 
 %% bmrk3
 % NPSSR/npssr_code/bmrk3/results/canlab_dataset_bmrk3.mat
@@ -135,28 +136,28 @@ cd(fullfile(basedir, 'lopezsola_2018_pain_meaning/results'));
 load('canlab_dataset_lopezsola_2018_pain_meaning.mat');
 beh_cons = {'con_beh_acc_hot_vs_rea_hot'};
 
-wh_baseline = [1 1 1 1 0 0 0 0 0 0 0 0 1 1 1 1];
-wh_meaning = [ 0 0 0 0 1 1 1 1 1 1 1 1 0 0 0 0];
+% wh_baseline = [1 1 1 1 0 0 0 0 0 0 0 0 1 1 1 1];
+% wh_meaning = [ 0 0 0 0 1 1 1 1 1 1 1 1 0 0 0 0];
 
-mydat = DAT.Subj_Level.data(:, 2:end); %first row is participants number
-dat_baseline = mydat .* wh_baseline;
-dat_baseline(dat_baseline == 0) = NaN;
-dat_meaning = mydat .* wh_meaning;
-dat_meaning(dat_meaning == 0) = NaN;
+%mydat = DAT.Subj_Level.data; %first row is participants number
+% dat_baseline = mydat .* wh_baseline;
+% dat_baseline(dat_baseline == 0) = NaN;
+% dat_meaning = mydat .* wh_meaning;
+% dat_meaning(dat_meaning == 0) = NaN;
 
-mean_baseline = mean(dat_baseline,2,'omitnan');
-mean_meaning = mean(dat_meaning, 2,'omitnan');
-mean_meaning = mean_baseline .* -1;
+% mean_baseline = mean(dat_baseline,2,'omitnan');
+% mean_meaning = mean(dat_meaning, 2,'omitnan');
+% mean_meaning = mean_baseline .* -1;
+% 
+% mycontrast = mean_meaning - mean_baseline;
 
-mycontrast = mean_meaning - mean_baseline;
 
-
-[n, k] = size(mycontrast);
+[n, k] = size(DAT.Subj_Level.data);
 nanpad = max_subjects - n;
 to_pad = NaN(nanpad, k);
 
-lopezsola_meaning_pain_ratings = vertcat(mycontrast,  to_pad);
-lopezsola_meaning_pain_ratings_names = { 'lopezsola_meaning_vs_no_meaning'};
+lopezsola_meaning_pain_ratings = vertcat(DAT.Subj_Level.data,  to_pad);
+lopezsola_meaning_pain_ratings_names = {'lopezsola_meaning_vs_no_meaning'};
 
 
 %% combine pain ratings from all studies (using ms for multistudy)
@@ -167,12 +168,10 @@ ms_ratings.names = [atlas_remi_pain_ratings_names atlas_exp_pain_ratings_names j
 
 size(ms_ratings.ratings)
 
+% optional save
+% myfile = fullfile(savedir, strcat('multistudy_ratings_',date,'.mat'));
+% save(myfile, 'ms_ratings');
 cd(origdir);
 
-% %% load corresponding brain contrasts from multistudy_contrasts
-% load('/Users/lukie/Documents/canlab/NPSSR/npssr_code/multistudy/results/multistudy_contrasts_16-Nov-2020.mat');
-% braincons = [16 3 5 13 22 20 19 24]
-% ms_brain = multistudy_contrasts.data(braincons)
-% clear multistudy_contrasts;
 
 
