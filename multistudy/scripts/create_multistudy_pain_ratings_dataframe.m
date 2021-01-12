@@ -24,12 +24,12 @@ jepma_pain_ratings_names = { 'ie2_high_vs_low_beh'};
 %% atlas_2013_remi_open_hidden: 
 cd(fullfile(basedir, 'atlas_2013_remi_open_hidden/results'));
 load('canlab_dataset_atlas_2013_remi_open_hidden.mat');
-beh_cons = {'pain_ratings_drug'};
+beh_cons = {'pain_ratings_nodrug_v_drug'};
 [n, k] = size(DAT.get_var(beh_cons));
 nanpad = max_subjects - n;
 to_pad = NaN(nanpad, k);
 atlas_remi_pain_ratings = vertcat(DAT.get_var(beh_cons),  to_pad);
-atlas_remi_pain_ratings_names = {'atlas_remi_hot_drug'};
+atlas_remi_pain_ratings_names = {'atlas_remi_hot_nodrug_v_drug'};
 
 %% atlas_2013_exp: 
 cd(fullfile(basedir, 'atlas_2010_exp/results'));
@@ -109,12 +109,12 @@ cd(fullfile(basedir, 'lopezsola_2019_handholding_pain/results'));
 load('canlab_dataset_lopezsola_2019_handholding_pain.mat');
 beh_cons = {'beh_con_HH_vs_BL'};
 
-[n, k] = size(DAT.get_var(beh_cons));
+[n, k] = size(DAT.Subj_Level.data(:,3));
 nanpad = max_subjects - n;
 to_pad = NaN(nanpad, k);
 
-lopezsola_handholding_pain_ratings = vertcat(DAT.get_var(beh_cons),  to_pad);
-lopezsola_handholding_pain_ratings_names = { 'lopezsola_handholding_beh_con_HH_vs_BL'};
+lopezsola_handholding_pain_ratings = vertcat(DAT.Subj_Level.data(:,3),  to_pad);
+lopezsola_handholding_pain_ratings_names = {'lopezsola_handholding_beh_con_HH_vs_BL'};
 %% kober_2019_mindful_acceptance_mrp
 % NPSSR/npssr_code/kober_2019_mindful_acceptance_mrp/results/canlab_dataset_kober_2019_mindful_acceptance_mrp.mat
 % corresponding brain contrast in dataframe:'mindful_acceptance_acc heat vs react heat'
@@ -169,8 +169,8 @@ ms_ratings.names = [atlas_remi_pain_ratings_names atlas_exp_pain_ratings_names j
 size(ms_ratings.ratings)
 
 % optional save
-% myfile = fullfile(savedir, strcat('multistudy_ratings_',date,'.mat'));
-% save(myfile, 'ms_ratings');
+myfile = fullfile(savedir, strcat('multistudy_ratings_',date,'.mat'));
+save(myfile, 'ms_ratings');
 cd(origdir);
 
 
