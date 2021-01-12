@@ -22,12 +22,13 @@ end
 
 pain_ratings = canlab_dataset;
 pain_ratings.Subj_Level.id = dataset_obj.Subj_Level.id;
-pain_ratings.Subj_Level.names = {'pain_ratings_drug', 'pain_ratings_no_drug'};
+pain_ratings.Subj_Level.names = {'pain_ratings_drug', 'pain_ratings_no_drug' 'pain_ratings_nodrug_v_drug'};
 pain_ratings.Subj_Level.type = {'int' 'int'};
 pain_ratings.Description = dataset_obj.Description;
 pain_ratings.Description.Event_Level = {}; % not keeping event level data
-pain_ratings.Subj_Level.descrip = {'Average pain rating for each subject for 1. trials with remi (pain_ratings_drug) and 2. trials without remi (pain_ratings_no_drug)'};
-pain_ratings.Subj_Level.data = [drug_ratings', nodrug_ratings'];
+pain_ratings.Subj_Level.descrip = {'Average pain rating for each subject for 1. trials with remi (pain_ratings_drug) and 2. trials without remi (pain_ratings_no_drug) and 3. drug minus no drug'};
+nodrug_v_drug = nodrug_ratings - drug_ratings;
+pain_ratings.Subj_Level.data = [drug_ratings', nodrug_ratings' nodrug_v_drug'];
 
 DAT = pain_ratings;
 
