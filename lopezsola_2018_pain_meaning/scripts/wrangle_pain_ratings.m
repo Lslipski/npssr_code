@@ -45,7 +45,8 @@ mydat.Subj_Level.data = mydat.Subj_Level.data(sub_indx);
 
 
 %% save canlab data object
+DAT = mydat;
 savefile = fullfile(savedir, 'canlab_dataset_lopezsola_2018_pain_meaning.mat');
-save(savefile, 'mydat');
+save(savefile, 'DAT');
 
 cd(return_dir);
