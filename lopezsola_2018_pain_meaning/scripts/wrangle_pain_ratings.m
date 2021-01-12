@@ -5,7 +5,7 @@ savedir = '/Users/lukie/Documents/canlab/NPSSR/npssr_code/lopezsola_2018_pain_me
 return_dir = pwd;
 cd(datadir)
 
-% load mat file from marika
+%% load mat file from marika
 load('romantic_pain_MP.mat');
 
 mydat = canlab_dataset;
@@ -14,7 +14,7 @@ mydat.Description.Experiment_Name = 'Marika Lopez-Sola pain meaning 2018';
 mydat.Subj_Level.names = 'pain ratings';
 mydat.Subj_Level.descrip = {'1 average pain rating for each participant corresponding to the pain they felt during trials with prosocial meaning'};
 
-% create data array with 16 rows for each of 29 subjects
+%% create data array with 1 row (average pain rating) for each of 29 subjects
 dat = [];
 for i = 1:size(romantic_pain.pain,2)
     these_ratings = cell2mat(romantic_pain.pain(i));
@@ -24,9 +24,27 @@ end
 
 mydat.Subj_Level.data = dat';
 
-% average pain ratings for each subject to get 1 pain rating per subject
+%% limit to only subjects for whom we have contrasts
+% get list of only subjects with a contrast
+mysubs = []
+subs_w_contrasts = dir('painbetas*.mat');
+for i = 1:size(subs_w_contrasts,1)
+    mysubs = [mysubs extractBetween(subs_w_contrasts(i).name,'painbetas_', '.mat')]
+end
+
+sub_indx = [];
+for i = 1:size(mysubs,2)
+    sub_indx = [sub_indx; strcmp(mysubs(i),romantic_pain.subjects)];
+end
+sub_indx = max(sub_indx);
+sub_indx = find(sub_indx == 1);
+
+% limit subject IDs
+mydat.Subj_Level.id = mydat.Subj_Level.id(sub_indx);
+mydat.Subj_Level.data = mydat.Subj_Level.data(sub_indx);
 
 
+%% save canlab data object
 savefile = fullfile(savedir, 'canlab_dataset_lopezsola_2018_pain_meaning.mat');
 save(savefile, 'mydat');
 
