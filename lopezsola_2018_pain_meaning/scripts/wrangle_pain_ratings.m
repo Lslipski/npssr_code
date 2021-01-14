@@ -16,10 +16,14 @@ mydat.Subj_Level.descrip = {'1 average pain rating for each participant correspo
 
 %% create data array with 1 row (average pain rating) for each of 29 subjects
 dat = [];
+BL_trials = [1 2 3 4 13 14 15 16];
+meaning_trials = [5 6 7 8 9 10 11 12];
 for i = 1:size(romantic_pain.pain,2)
     these_ratings = cell2mat(romantic_pain.pain(i));
-    mean_these_ratings = mean(these_ratings);
-    dat = [dat mean_these_ratings];
+    avg_bl_ratings = mean(these_ratings(BL_trials));
+    avg_meaning_ratings = mean(these_ratings(meaning_trials));
+    contrast_ratings = avg_meaning_ratings - avg_bl_ratings;
+    dat = [dat contrast_ratings];
 end
 
 mydat.Subj_Level.data = dat';
