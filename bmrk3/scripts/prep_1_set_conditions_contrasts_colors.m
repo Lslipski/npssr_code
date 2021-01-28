@@ -130,11 +130,12 @@ DAT.contrasts = [1 0 0
                  0 1 0
                  0 0 1
                  1 -1 0
-                 0 -1 1];
+                 0 -1 1
+                 1 0 -1];
     
 % Descriptive names for contrasts to be used in plots and tables. Avoid
 % special characters.
-DAT.contrastnames = {'imagine_down' 'standard' 'imagine_up' 'down vs standard' 'up vs standard'};
+DAT.contrastnames = {'imagine_down' 'standard' 'imagine_up' 'down vs standard' 'up vs standard' 'down vs up'};
 
 DAT.contrastnames = format_strings_for_legend(DAT.contrastnames);
 
