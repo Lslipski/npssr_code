@@ -41,19 +41,46 @@ multistudy_contrasts_data = {};
 multistudy_contrasts_names={};
                         
 for i=1:size(dataset_names, 1)
-    % load dataset from project folder
-    cd(fullfile(basedir,dataset_names{i}, 'results'))
-    contrasts = load(fullfile(pwd, 'contrast_data_objects.mat'));
     
-    %get column headers from image_names and preprend study key
-    contrast_names = contrasts.DATA_OBJ_CON{1}.image_names;
-    [worthless, len] = size(contrast_names);
-    this_data = [];
-    for q = 1:len
-        this_contrast = char(strcat(dataset_keys(i),'_', contrast_names{q}));
-        this_data = contrasts.DATA_OBJ_CON{q};
-        [n, k] = size(this_data);
+        % load dataset from project folder
+        cd(fullfile(basedir,dataset_names{i}, 'results'))
+        contrasts = load(fullfile(pwd, 'contrast_data_objects.mat'));
+    
+        %get column headers from image_names and preprend study key
+        contrast_names = contrasts.DATA_OBJ_CON{1}.image_names;
+        [worthless, len] = size(contrast_names);
+        this_data = [];
         
+    for q = 1:len        
+        if strcmp(dataset_names{q}, 'atlas_2013_remi_open_hidden')
+            con_to_grab = 1;
+        elseif strcmp(dataset_names{q}, 'atlas_2010_exp')
+            con_to_grab = 1;
+        elseif strcmp(dataset_names{q}, 'becker_2017_pain_reward')  
+            con_to_grab = 2;
+        elseif strcmp(dataset_names{q}, 'becker_2016_pain_control')  
+            con_to_grab = 1;
+        elseif strcmp(dataset_names{q}, 'bmrk3')
+            con_to_grab = 6;
+        elseif strcmp(dataset_names{q}, 'jepma_2018_ie2')
+            con_to_grab = 3;
+        elseif strcmp(dataset_names{q}, 'koban_2019_scebl_social_pain')
+            con_to_grab = 1;
+        elseif strcmp(dataset_names{q}, 'kober_2019_mindful_acceptance_mrp')     
+            con_to_grab = 1;
+        elseif strcmp(dataset_names{q}, 'lopezsola_2019_handholding_pain')     
+            con_to_grab = 1;
+        elseif strcmp(dataset_names{q}, 'roy_emomod_2009') 
+            con_to_grab = 2;
+        elseif strcmp(dataset_names{q}, 'lopezsola_2018_pain_meaning') 
+            con_to_grab = 1;
+        end
+        
+        
+        this_contrast = char(strcat(dataset_keys(i),'_', contrast_names{q}));
+        this_data = contrasts.DATA_OBJ_CON{con_to_grab};
+        [n, k] = size(this_data);
+
         
         % add contrast data and name to fmri_dataset
         fmri_ds = this_data;

@@ -58,17 +58,19 @@ becker_reward_ratings = sum(condat, 2);
 becker_reward_ratings_names = {'becker_reward_win_v_lose'};
 
 %% becker_2016_pain_control
+
+%EXCLUDING UNTIL CORRECT PAIN RATING VARIABLE CAN BE DETERMINED
+
 % /Users/lukie/Documents/canlab/NPSSR/npssr_code/becker_2016_pain_control/results/canlab_dataset_becker_2016_control.mat
 % corresponding brain contrast in dataframe: 'pain_control_Pain C vs Pain UC' 
 cd(fullfile(basedir, 'becker_2016_pain_control/results'));
 load('canlab_dataset_becker_2016_control.mat');
-beh_cons = {'meanVAS_last_pain'}; 
 
-[n, k] = size(DAT.Subj_Level.data(:,2));%weird type issue so just going to use 2
+[n, k] = size(DAT.Subj_Level.data(:,6));
 n = n-1; % not including subject 21
 nanpad = max_subjects - n;
 to_pad = NaN(nanpad, k);
-becker_2016_pain_control_ratings = vertcat(DAT.Subj_Level.data(:,2),  to_pad);
+becker_2016_pain_control_ratings = vertcat(DAT.Subj_Level.data(:,6),  to_pad);
 becker_2016_pain_control_ratings(21,:) = []; % remove subject 21
 becker_2016_pain_control_ratings_names = {'becker_pain_control_vs_uncontrol'};
 
@@ -161,9 +163,11 @@ lopezsola_meaning_pain_ratings_names = {'lopezsola_meaning_vs_no_meaning'};
 
 
 %% combine pain ratings from all studies (using ms for multistudy)
-ms_ratings.ratings = [atlas_remi_pain_ratings atlas_exp_pain_ratings jepma_pain_ratings becker_reward_ratings becker_2016_pain_control_ratings bmrk3_pain_ratings...
+ms_ratings.ratings = [atlas_remi_pain_ratings atlas_exp_pain_ratings jepma_pain_ratings becker_reward_ratings... %becker_2016_pain_control_ratings
+    bmrk3_pain_ratings...
     roy_emomod_pain_ratings lopezsola_handholding_pain_ratings kober_mindful_acc_pain_ratings lopezsola_meaning_pain_ratings];
-ms_ratings.names = [atlas_remi_pain_ratings_names atlas_exp_pain_ratings_names jepma_pain_ratings_names becker_reward_ratings_names becker_2016_pain_control_ratings_names bmrk3_pain_ratings_names...
+ms_ratings.names = [atlas_remi_pain_ratings_names atlas_exp_pain_ratings_names jepma_pain_ratings_names becker_reward_ratings_names... %becker_2016_pain_control_ratings_names 
+    bmrk3_pain_ratings_names...
     roy_emomod_pain_ratings_names lopezsola_handholding_pain_ratings_names kober_mindful_acc_pain_ratings_names lopezsola_meaning_pain_ratings_names];
 
 size(ms_ratings.ratings)
