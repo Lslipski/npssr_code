@@ -41,7 +41,7 @@ DAT = struct();
 % contain a string specifying the condition name to be used in plots and
 % tables. This does not have to correspond to an image/directory name.
 
-DAT.conditions = {'exp_high_temp_med' 'exp_low_temp_med'};
+DAT.conditions = {'exp_med_temp_high_cue' 'exp_med_temp_low_cue'};
 
 DAT.conditions = format_strings_for_legend(DAT.conditions);
 
