@@ -11,7 +11,7 @@ savedir = '/Users/lukie/Documents/canlab/NPSSR/NPSSR_contrast_images_local/atlas
 resultsdir = '/Users/lukie/Documents/canlab/NPSSR/npssr_code/atlas_2010_exp/results';
 currentdir = pwd;
 
-% load pain ratings
+%% load pain ratings
 load(fullfile(ratingsdir,'exp_dataset_obj.mat'));
 
 cd(datadir)
@@ -55,8 +55,8 @@ for i = 1:n
     % get low, med, and high temperatures
     temps = unique(myrats(:,2));
     mytemp = sort(temps(2));
-    med_temp_high_cue_trials = find((myrats(:,2) == mytemp) & (myrats(:,3) == 0.5));
-    med_temp_low_cue_trials = find((myrats(:,2) == mytemp) & (myrats(:,3) == -0.5));
+    med_temp_high_cue_trials = find((myrats(:,2) == mytemp) & (myrats(:,3) == 0.5) & (myrats(:,7) <= 2));
+    med_temp_low_cue_trials = find((myrats(:,2) == mytemp) & (myrats(:,3) == -0.5) & (myrats(:,7) <= 2));
     
     % average medium temp high cue ratings
     rats_med_high = mean(myrats(med_temp_high_cue_trials));
@@ -69,18 +69,16 @@ for i = 1:n
     my_med_low = mean(dat.dat(:,med_temp_low_cue_trials),2);
     
     %save both condition images
-    high_condition = fmri_data;
-    high_condition.dat = my_med_high;
-    high_condition.fullpath = fullfile(savedir, 'conditions',strcat(mysub, '_medtemp_highcue.nii'));
-    write(high_condition);
+    dat.dat = my_med_high;
+    dat.fullpath = fullfile(savedir, 'conditions', strcat(mysub, '_medtemp_highcue.nii'));
+    write(dat);
     
-    low_condition = fmri_data;
-    low_condition.dat = my_med_low;
-    low_condition.fullpath = fullfile(savedir, 'conditions',strcat(mysub, '_medtemp_lowcue','.nii'));
-    write(low_condition);
+    dat.dat = my_med_low;
+    dat.fullpath = fullfile(savedir, 'conditions',strcat(mysub, '_medtemp_lowcue','.nii'));
+    write(dat);
     % update fmri_data objects with new data for archive
-    med_temp_high_cue.dat = [med_temp_high_cue.dat my_med_high];
-    med_temp_low_cue.dat  = [med_temp_low_cue.dat my_med_low];
+%     med_temp_high_cue.dat = [med_temp_high_cue.dat my_med_high];
+%     med_temp_low_cue.dat  = [med_temp_low_cue.dat my_med_low];
     
     % save pain ratings to canlab_dataset_obj
     pain_ratings.Subj_Level.data = [pain_ratings.Subj_Level.data rat_contrast];
@@ -91,16 +89,16 @@ for i = 1:n
 end
 
 %save both as niftis
-med_temp_high_cue.fullpath = fullfile(savedir, 'contrasts', 'med_temp_high_cue.nii');
-write(med_temp_high_cue);
-med_temp_low_cue.fullpath = fullfile(savedir, 'contrasts', 'med_temp_low_cue.nii');
-write(med_temp_low_cue);
+% med_temp_high_cue.fullpath = fullfile(savedir, 'contrasts', 'med_temp_high_cue.nii');
+% write(med_temp_high_cue);
+% med_temp_low_cue.fullpath = fullfile(savedir, 'contrasts', 'med_temp_low_cue.nii');
+% write(med_temp_low_cue);
 
 
 % save pain ratings canlab_dataset object
-pain_ratings_file = fullfile(resultsdir, 'canlab_dataset_atlas_2010_exp.mat');
-DAT = pain_ratings;
-save(pain_ratings_file, 'DAT');
+% pain_ratings_file = fullfile(resultsdir, 'canlab_dataset_atlas_2010_exp.mat');
+% DAT = pain_ratings;
+% save(pain_ratings_file, 'DAT');
 
 
 
