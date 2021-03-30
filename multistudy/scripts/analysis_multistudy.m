@@ -17,7 +17,7 @@ datadir = '/Users/lukie/Documents/canlab/NPSSR/npssr_code/multistudy/results/';
 
 %% load all pain ratings for each study
 cd(datadir);
-load('multistudy_ratings_02-Feb-2021.mat');
+load('multistudy_ratings_30-Mar-2021.mat');
 
 %% RESCALE by MAD (median abs. deviation) column-wise:
 [n, k] = size(ms_ratings.ratings);
@@ -27,10 +27,14 @@ ms_ratings_tab = array2table(ms_ratings_all);
 ms_ratings_tab.Properties.VariableNames = ms_ratings.names;
 
 %% load corresponding brain contrasts from multistudy_contrasts
-load('multistudy_contrasts_28-Jan-2021.mat');
-braincons = [1 2 18 4 6 15 24 22 21 20 26]; % corresponding to the pain ratings list
+load('multistudy_contrasts_30-Mar-2021.mat');
+braincons = [1 2 6 3 5 10 9 7 8 11]; % corresponding to the pain ratings list order
 ms_brain = multistudy_contrasts.data(braincons)
 ms_brain_labels = multistudy_contrasts.contrast_names(braincons);
+
+% print ratings and nps lists to make sure they match in order
+ms_ratings_tab.Properties.VariableNames'
+ms_brain_labels'
 clear multistudy_contrasts;
 %% calculate nps for each set of brain images
 max = 36;
@@ -69,13 +73,15 @@ ms_nps_tab.Properties.VariableNames = ms_brain_labels;
 sum(~isnan(ms_ratings_all))
 sum(~isnan(ms_nps_all))
 
-%% Pain Ratings First
+
+%% Violin Plot of Pain Ratings
 mydat = ms_ratings_all;
-connames = ms_ratings_tab.Properties.VariableNames;
-con2plot = {'Remifentanil', 'Expectation', 'Symbolic Cond.', 'Reward', 'Imagination', 'Emotion', 'Handholding', 'Mindfulness', 'Meaning'};
+% clean up names for plotting
+con2plot = {'Remifentanil', 'Expectation', 'Symbolic Cond.', 'Reward', 'Imagination', 'Emotion', 'Handholding','Social', 'Mindfulness', 'Meaning'};
 
 % Make all pain reductions negative
-sign_switch = [1 2 3 5];
+% ------------------------------------------------------------------------
+sign_switch = [1 2 3 5 8];
  
  for col=1:size(sign_switch,2)
      mydat(:,sign_switch(col)) = mydat(:,sign_switch(col)) * -1;
@@ -83,19 +89,19 @@ sign_switch = [1 2 3 5];
 
 % Sort by effect size
 % ------------------------------------------------------------------------
-d = nanmean(ms_ratings_all) ./ nanstd(ms_ratings_all)
+d = nanmean(ms_ratings_all) ./ nanstd(ms_ratings_all);
 [ds, wh] = sort(abs(d), 'ascend');
 mydatpain = mydat(:, wh);
-connames = connames(wh);
 con2plot = con2plot(wh);
+
 
 % how many significant?  For colors
 % ------------------------------------------------------------------------
-t = nanmean(mydat) ./ ste(mydat);
-p = 2 * tcdf(abs(t), sum(~isnan(mydat)) - 1, 'upper'); % two-tailed
+t = nanmean(mydatpain) ./ ste(mydatpain);
+p = 2 * tcdf(abs(t), sum(~isnan(mydatpain)) - 1, 'upper'); % two-tailed
 
 k2 = sum(p < .05);
-[n, k] = size(mydat);
+[n, k] = size(mydatpain);
 
 vnames = format_strings_for_legend(con2plot);
 
@@ -103,8 +109,10 @@ xvals = 1:k;
 colors = repmat({[.5 .5 .7]}, 1, k - k2);        % non-significant 
 colors = [colors custom_colors([.7 0 0], [1 .7 0], k2)']; % significant
 
+% create plot
+% ------------------------------------------------------------------------
 create_figure('ratings')
-[h1, s1] = barplot_columns(mydatpain,'x', xvals, 'colors', colors, 'nofig');
+[h1, s1] = barplot_columns(mydatpain,'x', xvals, 'colors', colors, 'nofig','95CI');
 set(gca, 'XTickLabel', vnames);
 ylabel('Avg Pain Rating');
 xlabel('Study');
@@ -118,35 +126,33 @@ set(gcf, 'Position', pos);
 
 drawnow, snapnow; %drawnow updates figures with new gcf; snapnow takes a snapshot for publishing
 
-%% NPS Values Second
+
+%% Violin Plot of NPS Values
 mydat = ms_nps_all;
-connames = ms_brain_labels;
-%con2plot = {'Remifentanil', 'Expectation', 'Symbolic Cond.', 'Reward', 'Controllability', 'Imagination', 'Emotion','Handholding', 'Mindfulness','Social', 'Meaning'};
-con2plot = {'Symbolic Cond.', 'Meaning', 'Social', 'Emotion', 'Controllability', 'Handholding', 'Expectation', 'Mindfulness', 'Remifentanil', 'Reward', 'Imagination'};
+con2plot = {'Remifentanil', 'Expectation', 'Symbolic Cond.', 'Reward', 'Imagination', 'Emotion', 'Handholding','Social', 'Mindfulness', 'Meaning'};
 
 % Make imagination, social, and symbolic cues negative effects to match others
-%sign_switch = [2 3 4 5 6 11];
-sign_switch = [3 11 2 5 4 6];
- 
+ sign_switch = [3 2 6];
+%  
  for col=1:size(sign_switch,2)
      mydat(:,sign_switch(col)) = mydat(:,sign_switch(col)) * -1;
  end
 
+
 % Sort by effect size
 % ------------------------------------------------------------------------
-d = nanmean(mydat) ./ nanstd(mydat)
+d = nanmean(mydat) ./ nanstd(mydat);
 [ds, wh] = sort(abs(d), 'ascend');
-mydat = mydat(:, wh);
-connames = connames(wh);
+mynpsdat = mydat(:, wh);
 con2plot = con2plot(wh);
 
 % how many significant?  For colors
 % ------------------------------------------------------------------------
-t = nanmean(mydat) ./ ste(mydat);
-p = 2 * tcdf(abs(t), sum(~isnan(mydat)) - 1, 'upper'); % two-tailed
+t = nanmean(mynpsdat) ./ ste(mynpsdat);
+p = 2 * tcdf(abs(t), sum(~isnan(mynpsdat)) - 1, 'upper'); % two-tailed
 
 k2 = sum(p < .05);
-[n, k] = size(mydat);
+[n, k] = size(mynpsdat);
 
 vnames = format_strings_for_legend(con2plot);
 
@@ -154,8 +160,10 @@ xvals = 1:k;
 colors = repmat({[.5 .5 .7]}, 1, k - k2);        % non-significant 
 colors = [colors custom_colors([.7 0 0], [1 .7 0], k2)']; % significant
 
+% create plot
+% ------------------------------------------------------------------------
 create_figure('nps')
-[h1, s1] = barplot_columns(mydat,'x', xvals, 'colors', colors, 'nofig');
+[h1, s1] = barplot_columns(mynpsdat,'x', xvals, 'colors', colors, 'nofig', '95CI');
 set(gca, 'XTickLabel', vnames);
 ylabel('Avg NPS Value');
 xlabel('Study');
@@ -172,49 +180,50 @@ drawnow, snapnow;
 
 %% scatterplot of brain by behavior
 %grab pain ratings
-mydat = ms_ratings_all;
-connames = ms_ratings_tab.Properties.VariableNames;
-mynames_pain = {'Remifentanil', 'Expectation', 'Symbolic Cond.', 'Reward', 'Imagination', 'Emotion', 'Handholding', 'Mindfulness', 'Meaning'};
+% ------------------------------------------------------------------------
+mypaindat = ms_ratings_all;
+% clean up names for plotting
+con2plot = {'Remifentanil', 'Expectation', 'Symbolic Cond.', 'Reward', 'Imagination', 'Emotion', 'Handholding','Social', 'Mindfulness', 'Meaning'};
 
 % Make all pain reductions negative
-sign_switch = [1 2 3 5];
+sign_switch = [1 2 3 5 8];
  
  for col=1:size(sign_switch,2)
-     mydat(:,sign_switch(col)) = mydat(:,sign_switch(col)) * -1;
+     mypaindat(:,sign_switch(col)) = mypaindat(:,sign_switch(col)) * -1;
  end
-
-% average pain rating by study
-mydatpain_avg = nanmean(mydat);
-
-
-% grab nps responses
-mydat = ms_nps_all;
-connames = ms_brain_labels;
-%con2plot = {'Remifentanil', 'Expectation', 'Symbolic Cond.', 'Reward', 'Controllability', 'Imagination', 'Emotion','Handholding', 'Mindfulness','Social', 'Meaning'};
-con2plot = {'Symbolic Cond.', 'Meaning', 'Social', 'Emotion', 'Controllability', 'Handholding', 'Expectation', 'Mindfulness', 'Remifentanil', 'Reward', 'Imagination'};
-
-sign_switch = [3 11 2 5 4 6];
  
+% average pain by study
+mypaindat_avg = nanmean(mypaindat);
+ 
+% grab nps ratings
+% ------------------------------------------------------------------------
+mynpsdat = ms_nps_all;
+con2plot = {'Remifentanil', 'Expectation', 'Symbolic Cond.', 'Reward', 'Imagination', 'Emotion', 'Handholding','Social', 'Mindfulness', 'Meaning'};
+
+% Make reductions negative
+ sign_switch = [3 2 6];
+%  
  for col=1:size(sign_switch,2)
-     mydat(:,sign_switch(col)) = mydat(:,sign_switch(col)) * -1;
+     mynpsdat(:,sign_switch(col)) = mynpsdat(:,sign_switch(col)) * -1;
  end
 
-mydat_nps_scatter = mydat(:,[9 7 1 10 11 4 6 8 2]);
-mynames_nps = con2plot([9 7 1 10 11 4 6 8 2]);
-mydatnps_avg = nanmean(mydat_nps_scatter)
+% average nps by study
+mynpsdat_avg = nanmean(mynpsdat)
 
-plot_correlation_samefig(mydatpain_avg, mydatnps_avg)
+% create scatterplot
+% ------------------------------------------------------------------------
+figure; 
+[r, infos] = plot_correlation_samefig(mypaindat_avg, mynpsdat_avg, con2plot)
 
-disp('Pain Contrasts: ')
-mynames_pain'
-disp('NPS Contrasts: ')
-mynames_nps'
+ylabel('Avg NPS');
+xlabel('Avg Pain Rating');
+title('Pain x NPS Space');
 
-
-
-
-
-%% Save NPS Plot
-% -------------------------------------------------------------------------
-saveas(gcf, fullfile(figuresdir, 'multistudy_7_NPS_violin_with_points.fig'));
-saveas(gcf, fullfile(figuresdir, 'multistudy_7_NPS_violin_with_points.png'));
+ drawnow;snapnow;
+ 
+ 
+ 
+ 
+ 
+ 
+ 
