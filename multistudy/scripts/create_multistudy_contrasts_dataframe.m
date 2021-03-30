@@ -51,33 +51,33 @@ for i=1:size(dataset_names, 1)
         [worthless, len] = size(contrast_names);
         this_data = [];
         
-    for q = 1:len        
-        if strcmp(dataset_names{q}, 'atlas_2013_remi_open_hidden')
+    %for q = 1:len        
+        if strcmp(dataset_names{i}, 'atlas_2013_remi_open_hidden')
             con_to_grab = 1;
-        elseif strcmp(dataset_names{q}, 'atlas_2010_exp')
+        elseif strcmp(dataset_names{i}, 'atlas_2010_exp')
             con_to_grab = 1;
-        elseif strcmp(dataset_names{q}, 'becker_2017_pain_reward')  
+        elseif strcmp(dataset_names{i}, 'becker_2017_pain_reward')  
             con_to_grab = 2;
-        elseif strcmp(dataset_names{q}, 'becker_2016_pain_control')  
+        elseif strcmp(dataset_names{i}, 'becker_2016_pain_control')  
             con_to_grab = 1;
-        elseif strcmp(dataset_names{q}, 'bmrk3')
+        elseif strcmp(dataset_names{i}, 'bmrk3')
             con_to_grab = 6;
-        elseif strcmp(dataset_names{q}, 'jepma_2018_ie2')
+        elseif strcmp(dataset_names{i}, 'jepma_2018_ie2')
             con_to_grab = 3;
-        elseif strcmp(dataset_names{q}, 'koban_2019_scebl_social_pain')
+        elseif strcmp(dataset_names{i}, 'koban_2019_scebl_social_pain')
             con_to_grab = 1;
-        elseif strcmp(dataset_names{q}, 'kober_2019_mindful_acceptance_mrp')     
+        elseif strcmp(dataset_names{i}, 'kober_2019_mindful_acceptance_mrp')     
             con_to_grab = 1;
-        elseif strcmp(dataset_names{q}, 'lopezsola_2019_handholding_pain')     
+        elseif strcmp(dataset_names{i}, 'lopezsola_2019_handholding_pain')     
             con_to_grab = 1;
-        elseif strcmp(dataset_names{q}, 'roy_emomod_2009') 
+        elseif strcmp(dataset_names{i}, 'roy_emomod_2009') 
             con_to_grab = 2;
-        elseif strcmp(dataset_names{q}, 'lopezsola_2018_pain_meaning') 
+        elseif strcmp(dataset_names{i}, 'lopezsola_2018_pain_meaning') 
             con_to_grab = 1;
         end
         
         
-        this_contrast = char(strcat(dataset_keys(i),'_', contrast_names{q}));
+        this_contrast = char(strcat(dataset_keys(i),'_', contrast_names{con_to_grab}));
         this_data = contrasts.DATA_OBJ_CON{con_to_grab};
         [n, k] = size(this_data);
 
@@ -98,7 +98,7 @@ for i=1:size(dataset_names, 1)
         multistudy_contrasts_data{end+1} = fmri_ds;
         multistudy_contrasts_names{end+1} = [fmri_ds.image_names];
         
-    end
+    %end
 
 end
 
@@ -110,7 +110,6 @@ multistudy_contrasts.contrast_names = multistudy_contrasts_names;
 
 savename = strcat('multistudy_contrasts_', date, '.mat')
 save(fullfile(results_dir, savename), 'multistudy_contrasts') % save
-pwd % save location
 
 
 cd(results_dir)
