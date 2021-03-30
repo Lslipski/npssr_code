@@ -79,13 +79,13 @@ becker_2016_pain_control_ratings_names = {'becker_pain_control_vs_uncontrol'};
 % corresponding brain contrast in dataframe: 'bmrk3_up vs standard' 
 cd(fullfile(basedir, 'bmrk3/results/'));
 load('canlab_dataset_bmrk3.mat');
-beh_cons = {'up_vs_neutral_rating'};
+beh_cons = {'up_vs_down_rating'};
 
 [n, k] = size(DAT.get_var(beh_cons));
 nanpad = max_subjects - n;
 to_pad = NaN(nanpad, k);
 bmrk3_pain_ratings = vertcat(DAT.get_var(beh_cons),  to_pad);
-bmrk3_pain_ratings_names = { 'bmrk3_up_vs_neutral_rating'};
+bmrk3_pain_ratings_names = { 'bmrk3_up_vs_down_rating'};
 
 %% roy_emomod_2009
 % NPSSR/npssr_code/roy_2009_iaps_pain/results/canlab_dataset_roy_emomod_2009.mat
@@ -101,8 +101,17 @@ to_pad = NaN(nanpad, k);
 roy_emomod_pain_ratings = vertcat(DAT.Subj_Level.data',  to_pad);
 roy_emomod_pain_ratings_names = { 'roy_emomod_ratings_neg_vs_pos'};
 %% koban_2019_scebl_social_pain
-% I cannot find the pain data for this
-% corresponding brain contrast in dataframe:
+% corresponding brain contrast in dataframe:'handholding_handholding vs baseline' 
+cd(fullfile(basedir, 'koban_2019_scebl_social_pain/results'));
+load('canlab_dataset_koban_2019_scebl_social_pain.mat');
+beh_cons = {'contrast_ratings_sochilo'};
+
+[n, k] = size(DAT.Subj_Level.data(:,9));
+nanpad = max_subjects - n;
+to_pad = NaN(nanpad, k);
+
+koban_2019_scebl_social_pain_ratings = vertcat(DAT.Subj_Level.data(:,9), to_pad);
+koban_2019_scebl_social_pain_ratings_names = {'koban_social_pain_beh_con_sochi_vs_soclo'};
 
 %% lopezsola_2019_handholding_pain
 % NPSSR/npssr_code/lopezsola_2019_handholding_pain/results/canlab_dataset_lopezsola_2019_handholding_pain.mat
@@ -165,10 +174,13 @@ lopezsola_meaning_pain_ratings_names = {'lopezsola_meaning_vs_no_meaning'};
 %% combine pain ratings from all studies (using ms for multistudy)
 ms_ratings.ratings = [atlas_remi_pain_ratings atlas_exp_pain_ratings jepma_pain_ratings becker_reward_ratings... %becker_2016_pain_control_ratings
     bmrk3_pain_ratings...
-    roy_emomod_pain_ratings lopezsola_handholding_pain_ratings kober_mindful_acc_pain_ratings lopezsola_meaning_pain_ratings];
+    roy_emomod_pain_ratings lopezsola_handholding_pain_ratings koban_2019_scebl_social_pain_ratings kober_mindful_acc_pain_ratings... 
+    lopezsola_meaning_pain_ratings
+    ];
 ms_ratings.names = [atlas_remi_pain_ratings_names atlas_exp_pain_ratings_names jepma_pain_ratings_names becker_reward_ratings_names... %becker_2016_pain_control_ratings_names 
     bmrk3_pain_ratings_names...
-    roy_emomod_pain_ratings_names lopezsola_handholding_pain_ratings_names kober_mindful_acc_pain_ratings_names lopezsola_meaning_pain_ratings_names];
+    roy_emomod_pain_ratings_names lopezsola_handholding_pain_ratings_names koban_2019_scebl_social_pain_ratings_names...
+    kober_mindful_acc_pain_ratings_names lopezsola_meaning_pain_ratings_names];
 
 size(ms_ratings.ratings)
 
