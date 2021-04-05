@@ -3,7 +3,7 @@
 basedir = '/Users/lukie/Documents/canlab/NPSSR/npssr_code';
 results_dir = fullfile(basedir,'multistudy','results')
 
-max_subjects = 36;  % maximum numer of subjects in any of the given studies
+max_subjects = 40;  % maximum numer of subjects in any of the given studies (placebo has 40)
 
 % list of folders to look through for nps and ratings data
 dataset_names = {'atlas_2013_remi_open_hidden'
@@ -12,13 +12,13 @@ dataset_names = {'atlas_2013_remi_open_hidden'
                   'becker_2016_pain_control'
                   'bmrk3'
                   'jepma_2018_ie2'
-                  %'geuter_2012_placebo'
                   'koban_2019_scebl_social_pain'
                   'kober_2019_mindful_acceptance_mrp'
                   'lopezsola_2019_handholding_pain'
                  %'ma_2016_pain_citalopram'
                  'roy_emomod_2009'
                  'lopezsola_2018_pain_meaning'
+                 'geuter_2013_placebo'
                  };
              
 dataset_keys = {'remi'
@@ -27,13 +27,13 @@ dataset_keys = {'remi'
                  'pain_control' 
                  'bmrk3'
                  'ie2'
-                % 'placebo'
                  'social_pain'
                  'mindful_acceptance'
                  'handholding'
                  %'ma_2016_pain_citalopram'
                  'roy_emomod_2009'
                  'pain_meaning'
+                 'placebo'
                  };
              
 % initialize cell arrays to hold all studies' data
@@ -74,6 +74,9 @@ for i=1:size(dataset_names, 1)
             con_to_grab = 2;
         elseif strcmp(dataset_names{i}, 'lopezsola_2018_pain_meaning') 
             con_to_grab = 1;
+        elseif strcmp(dataset_names{i}, 'geuter_2013_placebo') 
+            con_to_grab = 1;
+
         end
         
         
