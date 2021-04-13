@@ -30,7 +30,7 @@
 
 % Base directory for whole study/analysis
 basedir = '/Users/lukie/Documents/canlab/NPSSR/npssr_code/koban_2019_scebl_social_pain';
-datadir = '/Users/lukie/Documents/canlab/NPSSR/NPSSR_contrast_images_local/koban_2019_scebl_social_pain/data';
+datadir = '/Users/lukie/Documents/canlab/NPSSR/NPSSR_contrast_images_local/koban_2019_scebl_social_pain/data/conditions/';
 
 
 % Set user options

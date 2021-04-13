@@ -41,7 +41,7 @@ DAT = struct();
 % contain a string specifying the condition name to be used in plots and
 % tables. This does not have to correspond to an image/directory name.
 
-DAT.conditions = {'soc_hot' 'cs_hot'};
+DAT.conditions = {'pain_socHigh' 'pain_socLow'};
 
 DAT.conditions = format_strings_for_legend(DAT.conditions);
 
@@ -82,7 +82,7 @@ DAT.conditions = format_strings_for_legend(DAT.conditions);
 % condition. 
 % If you do not have subfolders, it is OK to leave this empty, i.e., DAT.subfolders = {};
 
-DAT.subfolders = {'' ''};
+DAT.subfolders = {'Pain_SocHigh' 'Pain_SocLow'};
 
 % Names of wildcard (expression with *, [1-9], 
 % Enter a cell array { } with one cell per condition.  Each cell should
@@ -90,7 +90,7 @@ DAT.subfolders = {'' ''};
 % condition. 
 
 DAT.structural_wildcard = {};
-DAT.functional_wildcard = {'Soc*.img' 'CS*.img'};
+DAT.functional_wildcard = {'*.img.gz' '*.img.gz'};
 
 % Set Contrasts
 % ------------------------------------------------------------------------
@@ -126,11 +126,11 @@ DAT.functional_wildcard = {'Soc*.img' 'CS*.img'};
 
 
 
-DAT.contrasts = [1 0];
+DAT.contrasts = [1 -1];
     
 % Descriptive names for contrasts to be used in plots and tables. Avoid
 % special characters.
-DAT.contrastnames = {'soc_hot_v_cs_hot'};
+DAT.contrastnames = {'pain_SocHigh_vs_SocLow'};
 
 DAT.contrastnames = format_strings_for_legend(DAT.contrastnames);
 

@@ -6,7 +6,8 @@ datadir = fullfile(basedir, 'results');
 
 cd(datadir)
 
-load canlab_dataset_koban_2019_scebl_social_pain DAT
+%load canlab_dataset_koban_2019_scebl_social_pain DAT
+DAT = canlab_dataset;
 
 painratings = readtable(fullfile(rawdir, 'SCEBL_NPS_painratings.xlsx'));
 
@@ -34,14 +35,14 @@ ratings_names = {'Behavioral_CLSL_48'
 DAT.Subj_Level.names = [DAT.Subj_Level.names; ratings_names];
 
 % add raw ratings data to Subject level data 
-DAT.Subj_Level.data = [DAT.Subj_Level.data table2array(painratings(:, 3:10))];
+DAT.Subj_Level.data = [table2array(painratings(:, 3:10))];
 
 %% add contrasts for pain ratings
 
 % array is prime(') to fit the size of the subj_level data (matrix algebra
 % will require this to apply contrasts to data)
 C = [0 0 -1 1 -1 1 0 0;
-     -1 -1 -1 -1 1 1 1 1;]';
+     0 0 -1 -1 1 1 0 0;]';
 condescrips = {'Contrast Behavioral Social cue high > Soc cue low'
             'Contrast Behavioral CS high > CS low'};
 connames = {'contrast_ratings_sochilo'
@@ -49,7 +50,7 @@ connames = {'contrast_ratings_sochilo'
 DAT.Subj_Level.descrip = [DAT.Subj_Level.descrip; condescrips];
 DAT.Subj_Level.names = [DAT.Subj_Level.names; connames];
 
-mydat = get_var(DAT, DAT.Subj_Level.names(13:20)); % get subject level data for each of the behavioral conditions
+mydat = DAT.Subj_Level.data; % get subject level data for each of the behavioral conditions
 convals = mydat * C; % multiply the data by the contrasts to get behavioral values for each subject for each contrast
 
 %concatenate new contrast values to data field
