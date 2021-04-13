@@ -94,6 +94,8 @@ d = nanmean(ms_ratings_all) ./ nanstd(ms_ratings_all);
 mydatpain = mydat(:, wh);
 con2plot = con2plot(wh);
 
+% save effect sizes (comment out, only need to do this once
+%save('pain_rating_d', 'd');
 
 % how many significant?  For colors
 % ------------------------------------------------------------------------
@@ -145,6 +147,9 @@ d = nanmean(mydat) ./ nanstd(mydat);
 [ds, wh] = sort(abs(d), 'ascend');
 mynpsdat = mydat(:, wh);
 con2plot = con2plot(wh);
+
+% save effect sizes for these studies, comment out, only need to do once
+%save('nps_d', 'd');
 
 % how many significant?  For colors
 % ------------------------------------------------------------------------
@@ -212,18 +217,45 @@ mynpsdat_avg = nanmean(mynpsdat)
 
 % create scatterplot
 % ------------------------------------------------------------------------
-figure; 
-[r, infos] = plot_correlation_samefig(mypaindat_avg, mynpsdat_avg, con2plot);
+%simple way
+% figure; 
+% [r, infos] = plot_correlation_samefig(mypaindat_avg, mynpsdat_avg, con2plot);
+% 
+% ylabel('Avg NPS');
+% xlabel('Avg Pain Rating');
+% title('Pain x NPS Space');
+% 
+% drawnow;snapnow;
+ 
+% with error bars vertical and horizontal
+% stats from pain ratings
+pain_std = nanstd(mypaindat); % Standard Error
+pain_sqrt_ss = sqrt(sum(~isnan(mypaindat)));
+high95 = 1.9600;
+low95 = -1.9600;
+pain_mean = nanmean(mypaindat);
+pain_upper = low95 .* (pain_std ./ pain_sqrt_ss);
+pain_lower = low95 .* (pain_std ./ pain_sqrt_ss);
+ 
+% stats from nps ratings
+nps_std = nanstd(mynpsdat); % Standard Error
+nps_sqrt_ss = sqrt(sum(~isnan(mynpsdat)));
+high95 = 1.9600;
+low95 = -1.9600;
+nps_mean = nanmean(mynpsdat);
+nps_upper = low95 .* (nps_std ./ nps_sqrt_ss);
+nps_lower = low95 .* (nps_std ./ nps_sqrt_ss);
+ 
+errorbar(mypaindat_avg, mynpsdat_avg, nps_lower, nps_upper, pain_lower, pain_upper, 'o')
 
-ylabel('Avg NPS');
-xlabel('Avg Pain Rating');
-title('Pain x NPS Space');
 
- drawnow;snapnow;
- 
- 
- 
- 
- 
- 
+
+%% exampel
+x = [1 10];
+y = [20 80];
+yneg = [1 3 ];
+ypos = [2 5 ];
+xneg = [1 3 ];
+xpos = [2 5 ];
+errorbar(x,y,yneg,ypos,xneg,xpos,'o')
  
