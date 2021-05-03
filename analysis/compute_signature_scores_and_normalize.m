@@ -103,7 +103,7 @@ MAD_rssigtable.study = condnames';
 %% Pain Ratings
 % load pain ratings for each subject by study
 load(fullfile(savedir,'multistudy_ratings_05-Apr-2021.mat'));
-% names = {'Remifentanil', 'Expectation', 'Symbolic Cond.', 'Reward', 'Imagination', 'Emotion', 'Handholding','Social', 'Mindfulness', 'Meaning', 'Placebo'};
+
 % flip signs of pain ratings where appropriate to make contrasts correct
 % sign 
 sign_switch = [1 2 3 5 8];
@@ -114,6 +114,11 @@ end
 rats = reshape(ms_ratings.ratings,[],1); % make into vector
 rats = rats(~isnan(rats)); % remove nans padded into original table
 
+% divide by MAD
+[n, k] = size(ms_ratings.ratings);
+MAD_rats = ms_ratings.ratings ./ repmat(mad(ms_ratings.ratings), n, 1);
+MAD_rats = reshape(MAD_rats, [], 1);
+MAD_rats = MAD_rats(~isnan(MAD_rats));
 
 %% Flip signs of signature scores depending on contrast of interest
 sign_switch = {'Sym_Cond', 'Expectation', 'Emotion'}; % Symbolic Cond., Expectation, Emotion;
@@ -130,6 +135,7 @@ end
 %% Combine all tables
 savetable = [sigtable{1}(:,1:end - 1) rssigtable{1}(:,1:end -1) MAD_sigtable(:,1:end - 1) MAD_rssigtable(:,:)];
 savetable.pain_scores = rats; % add pain ratings to signatures table
+savetable.MAD_pain_scores = MAD_rats; % add MAD normalized pain ratings to signatures table
 
 
 %% save all signature scores
